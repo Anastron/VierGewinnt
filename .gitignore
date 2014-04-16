@@ -36,3 +36,6 @@ local.properties
 proguard/
 
 *.cache
+
+*/gen/
+*/build/
