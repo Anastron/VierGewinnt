@@ -1,11 +1,13 @@
 package com.VierGewinnt.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+
 
 public class Splash implements Screen {
 	
@@ -35,6 +37,9 @@ public class Splash implements Screen {
 		Texture splashTexture= new Texture("img/splash.png");
 		splash = new Sprite(splashTexture);		
 		splash.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		
+		((Game) Gdx.app.getApplicationListener()).setScreen(new MainMenu());
+		
 	}
 
 	@Override
@@ -57,7 +62,8 @@ public class Splash implements Screen {
 
 	@Override
 	public void dispose() {
-		
+		batch.dispose();
+		splash.getTexture().dispose();
 		
 	}
 
