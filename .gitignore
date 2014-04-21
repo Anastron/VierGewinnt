@@ -39,3 +39,6 @@ proguard/
 
 */gen/
 */build/
+
+
+.metadata/
