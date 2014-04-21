@@ -24,7 +24,7 @@ public class MainMenu implements Screen {
 	private TextureAtlas atlas;
 	private Skin skin;
 	private Table table;
-	private TextButton buttonComputer, buttonExit, buttonLokal, buttonOnline;
+	private TextButton buttonComputer, buttonExit, buttonLokal, buttonOnline, buttonRanking, buttonSettings;
 	private BitmapFont white, black;
 	private Label heading;
 	
@@ -88,6 +88,44 @@ public class MainMenu implements Screen {
 			}
 		});
 		buttonComputer.pad(15);
+		
+		buttonLokal = new TextButton("Lokal Multiplayer", textButtonStyle);
+		buttonLokal.addListener(new ClickListener(){
+			@Override
+			public void clicked(InputEvent event, float x, float y){
+				((Game) Gdx.app.getApplicationListener()).setScreen(new LokalGameScreen());
+			}
+		});
+		buttonLokal.pad(15);
+		
+		buttonOnline = new TextButton("Online Multiplayer", textButtonStyle);
+		buttonOnline.addListener(new ClickListener(){
+			@Override
+			public void clicked(InputEvent event, float x, float y){
+				((Game) Gdx.app.getApplicationListener()).setScreen(new OnlineGameScreen());
+			}
+		});
+		buttonOnline.pad(15);
+		
+		buttonRanking = new TextButton("Rangliste", textButtonStyle);
+		buttonRanking.addListener(new ClickListener(){
+			@Override
+			public void clicked(InputEvent event, float x, float y){
+				((Game) Gdx.app.getApplicationListener()).setScreen(new RankingScreen());
+			}
+		});
+		buttonRanking.pad(15);
+		
+		buttonSettings = new TextButton("Einstellungen", textButtonStyle);
+		buttonSettings.addListener(new ClickListener(){
+			@Override
+			public void clicked(InputEvent event, float x, float y){
+				((Game) Gdx.app.getApplicationListener()).setScreen(new SettingsScreen());
+			}
+		});
+		buttonSettings.pad(15);
+		
+		
 		// creating heading :)
 		heading = new Label(VierGewinnt.TITLE, new LabelStyle(white, Color.WHITE));
 		heading.setFontScale(3);
@@ -98,6 +136,18 @@ public class MainMenu implements Screen {
 		table.row();
 		table.add(buttonComputer);
 		table.getCell(buttonComputer).spaceBottom(15);
+		table.row();
+		table.add(buttonLokal);
+		table.getCell(buttonLokal).spaceBottom(15);
+		table.row();
+		table.add(buttonOnline);
+		table.getCell(buttonOnline).spaceBottom(15);
+		table.row();
+		table.add(buttonRanking);
+		table.getCell(buttonRanking).spaceBottom(15);
+		table.row();
+		table.add(buttonSettings);
+		table.getCell(buttonSettings).spaceBottom(15);
 		table.row();
 		table.add(buttonExit);
 		table.debug();
