@@ -42,8 +42,9 @@ public class MainMenu implements Screen {
 
 	@Override
 	public void resize(int width, int height) {
-		// TODO Auto-generated method stub
-
+		stage.setViewport(width, height, true);
+		table.invalidateHierarchy();
+		table.setSize(width, height);
 	}
 
 	@Override
@@ -83,14 +84,12 @@ public class MainMenu implements Screen {
 		buttonComputer.addListener(new ClickListener(){
 			@Override
 			public void clicked(InputEvent event, float x, float y){
-				((Game) Gdx.app.getApplicationListener()).setScreen(new CopmuterScreen());
+				((Game) Gdx.app.getApplicationListener()).setScreen(new ComputerScreen());
 			}
 		});
 		buttonComputer.pad(15);
 		// creating heading :)
-		LabelStyle headingStyle = new LabelStyle(white, Color.WHITE);
-
-		heading = new Label(VierGewinnt.TITLE, headingStyle);
+		heading = new Label(VierGewinnt.TITLE, new LabelStyle(white, Color.WHITE));
 		heading.setFontScale(3);
 
 		// putting the stuff together...

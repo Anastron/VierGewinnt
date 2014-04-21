@@ -4,7 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 
-public class CopmuterScreen implements Screen{
+public class ComputerScreen implements Screen{
 
 	@Override
 	public void render(float delta) {
