@@ -1,6 +1,7 @@
 package com.VierGewinnt.screens;
 
 import com.VierGewinnt.VierGewinnt;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
@@ -23,13 +24,14 @@ public class MainMenu implements Screen {
 	private TextureAtlas atlas;
 	private Skin skin;
 	private Table table;
-	private TextButton buttonPlay, buttonExit;
+	private TextButton buttonComputer, buttonExit, buttonLokal, buttonOnline;
 	private BitmapFont white, black;
 	private Label heading;
+	
 
 	@Override
 	public void render(float delta) {
-		Gdx.gl.glClearColor(0, 0, 0, 1);
+		Gdx.gl.glClearColor(0, 0, 1, 0);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		Table.drawDebug(stage);
@@ -75,8 +77,16 @@ public class MainMenu implements Screen {
 			}
 
 		});
-		buttonExit.pad(20);
-
+		buttonExit.pad(15);
+		
+		buttonComputer = new TextButton("Computer Game", textButtonStyle);
+		buttonComputer.addListener(new ClickListener(){
+			@Override
+			public void clicked(InputEvent event, float x, float y){
+				((Game) Gdx.app.getApplicationListener()).setScreen(new CopmuterScreen());
+			}
+		});
+		buttonComputer.pad(15);
 		// creating heading :)
 		LabelStyle headingStyle = new LabelStyle(white, Color.WHITE);
 
@@ -85,6 +95,10 @@ public class MainMenu implements Screen {
 
 		// putting the stuff together...
 		table.add(heading);
+		table.getCell(heading).spaceBottom(100);
+		table.row();
+		table.add(buttonComputer);
+		table.getCell(buttonComputer).spaceBottom(15);
 		table.row();
 		table.add(buttonExit);
 		table.debug();
@@ -111,8 +125,11 @@ public class MainMenu implements Screen {
 
 	@Override
 	public void dispose() {
-		// TODO Auto-generated method stub
-
+		stage.dispose();
+		atlas.dispose();
+		skin.dispose();
+		white.dispose();
+		black.dispose();
 	}
 
 }
