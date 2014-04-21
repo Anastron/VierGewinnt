@@ -19,9 +19,9 @@ public class VierGewinnt extends Game {
 	public void create() {	
 		
 
-		AudioManager.loadAudio();
+		//AudioManager.loadAudio();  wait for audio
 		
-		TexturesManager.loadTextures();
+		//TexturesManager.loadTextures(); wait for images
 		
 		setScreen(new Splash());
 	}
