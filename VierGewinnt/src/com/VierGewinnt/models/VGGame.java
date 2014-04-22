@@ -9,32 +9,16 @@ import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Rectangle;
 
 public class VGGame implements UnifiedInputHandler {
-	private final int width;
-	private final int height;
-
-	private GameStone[][] field;
+	private final VGGameLogic logic;
 
 	private int selectedColumn = -1;
 	private ShapeRenderer srenderer;
 	private Rectangle fieldRectangle;
 
 	public VGGame(int w, int h) {
-		width = w;
-		height = h;
-
-		field = new GameStone[w][h];
-
-		init();
+		logic = new VGGameLogic(w, h);
 		
 		srenderer = new ShapeRenderer();
-	}
-
-	private void init() {
-		for (int x = 0; x < width; x++) {
-			for (int y = 0; y < height; y++) {
-				field[x][y] = null;
-			}
-		}
 	}
 	
 	public void dispose() {
@@ -43,7 +27,7 @@ public class VGGame implements UnifiedInputHandler {
 
 	public Rectangle calcViewRect(float resolutionX, float resolutionY) {
 		float ratio_real = (1f * resolutionX) / resolutionY;
-		float ratio_game = (1f * width) / height;
+		float ratio_game = (1f * logic.width) / logic.height;
 
 		float offx;
 		float offy;
@@ -77,7 +61,7 @@ public class VGGame implements UnifiedInputHandler {
 	}
 
 	private float getStoneRadius() {
-		return fieldRectangle.width / (width * 2);
+		return fieldRectangle.width / (logic.width * 2);
 	}
 	
 	private Circle getStoneCircle(int x, int y) {
@@ -102,7 +86,7 @@ public class VGGame implements UnifiedInputHandler {
 		srenderer.begin(ShapeType.Filled);
 		{
 			srenderer.setColor(Color.RED);
-			for (int x = 0; x < width; x++) {
+			for (int x = 0; x < logic.width; x++) {
 				if (x == selectedColumn) {
 					Circle c = getStoneCircle(x, 0);
 
@@ -116,14 +100,14 @@ public class VGGame implements UnifiedInputHandler {
 		
 		srenderer.begin(ShapeType.Filled);
 		{
-			for (int x = 0; x < width; x++) {
-				for (int y = 0; y < height; y++) {
+			for (int x = 0; x < logic.width; x++) {
+				for (int y = 0; y < logic.height; y++) {
 					Circle c = getStoneCircle(x, y);
 					
-					if (field[x][y] != null) {
-						srenderer.setColor(field[x][y].getColor());
-					} else {
+					if (logic.empty(x, y)) {
 						srenderer.setColor(Color.WHITE);
+					} else {
+						srenderer.setColor(logic.get(x, y).getColor());
 					}
 					
 					srenderer.circle(c.x, c.y, c.radius);
@@ -138,10 +122,10 @@ public class VGGame implements UnifiedInputHandler {
 		{
 			srenderer.setColor(Color.BLACK);
 
-			for (int x = 0; x < width; x++) {
-				for (int y = 0; y < height; y++) {
+			for (int x = 0; x < logic.width; x++) {
+				for (int y = 0; y < logic.height; y++) {
 					Circle c = getStoneCircle(x, y);
-					if (field[x][y] == null) {
+					if (logic.empty(x, y)) {
 						srenderer.circle(c.x, c.y, c.radius);
 					}
 				}
@@ -149,7 +133,7 @@ public class VGGame implements UnifiedInputHandler {
 		}
 		srenderer.end();
 	}
-
+	
 	@Override
 	public boolean inputUp(int x, int y) {
 		return false;
@@ -157,13 +141,34 @@ public class VGGame implements UnifiedInputHandler {
 
 	@Override
 	public boolean inputDown(int x, int y) {
-		return false;
+		selectedColumn = -1;
+		
+		if (fieldRectangle.contains(x, y)) {
+			for (int tx = 0; tx < logic.width; tx++) {
+				Circle c = getStoneCircle(tx, 0);
+				if (Math.abs(x - c.x) < c.radius) {
+					selectedColumn = tx;
+					break;
+				}
+			}
+		}
+		
+		if (selectedColumn == -1)
+			return false;
+		
+		if (! logic.canDropStone(selectedColumn))
+			return false;
+		
+		logic.dropStone(selectedColumn, new GameStone(logic.getActivePlayer()));
+		logic.switchPlayer();
+		
+		return true;
 	}
 
 	@Override
 	public boolean inputMove(int x, int y) {
 		if (fieldRectangle.contains(x, y)) {
-			for (int tx = 0; tx < width; tx++) {
+			for (int tx = 0; tx < logic.width; tx++) {
 				Circle c = getStoneCircle(tx, 0);
 				if (Math.abs(x - c.x) < c.radius) {
 					selectedColumn = tx;
@@ -174,6 +179,5 @@ public class VGGame implements UnifiedInputHandler {
 		
 		selectedColumn = -1;
 		return false;
-		
 	}
 }
