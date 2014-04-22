@@ -6,7 +6,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -27,13 +29,22 @@ public class MainMenu implements Screen {
 	private TextButton buttonComputer, buttonExit, buttonLokal, buttonOnline, buttonRanking, buttonSettings;
 	private BitmapFont white, black;
 	private Label heading;
+	
+
 
 	@Override
 	public void render(float delta) {
 		Gdx.gl.glClearColor(0, 0, 1, 0);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-		Table.drawDebug(stage);
+		SpriteBatch batch = new SpriteBatch();
+		Texture background = new Texture("img/backgroundVG.png");
+		
+		batch.begin();
+		batch.draw(background, 0, 0);
+		batch.end();
+		
+//		Table.drawDebug(stage);
 
 		stage.act(delta);
 		stage.draw();

@@ -3,6 +3,8 @@ package com.VierGewinnt.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class OnlineGameScreen implements Screen{
 
@@ -10,6 +12,13 @@ public class OnlineGameScreen implements Screen{
 	public void render(float delta) {
 		Gdx.gl.glClearColor(0, 1, 1, 0);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);	
+		
+		SpriteBatch batch = new SpriteBatch();
+		Texture background = new Texture("img/backgroundVG.png");
+		
+		batch.begin();
+		batch.draw(background, 0, 0);
+		batch.end();
 	}
 
 	@Override
