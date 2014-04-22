@@ -27,7 +27,6 @@ public class MainMenu implements Screen {
 	private TextButton buttonComputer, buttonExit, buttonLokal, buttonOnline, buttonRanking, buttonSettings;
 	private BitmapFont white, black;
 	private Label heading;
-	
 
 	@Override
 	public void render(float delta) {
@@ -73,6 +72,7 @@ public class MainMenu implements Screen {
 
 		buttonExit = new TextButton("Exit", textButtonStyle);
 		buttonExit.addListener(new ClickListener() {
+			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				Gdx.app.exit();
 			}
@@ -93,7 +93,7 @@ public class MainMenu implements Screen {
 		buttonLokal.addListener(new ClickListener(){
 			@Override
 			public void clicked(InputEvent event, float x, float y){
-				((Game) Gdx.app.getApplicationListener()).setScreen(new LokalGameScreen());
+				((Game) Gdx.app.getApplicationListener()).setScreen(new LocalGameScreen());
 			}
 		});
 		buttonLokal.pad(15);

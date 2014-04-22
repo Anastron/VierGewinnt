@@ -26,8 +26,7 @@ public class Splash implements Screen {
 
 	@Override
 	public void resize(int width, int height) {
-		
-		
+		// Do nothing
 	}
 
 	@Override
@@ -44,20 +43,17 @@ public class Splash implements Screen {
 
 	@Override
 	public void hide() {
-		
-		
+		// Do nothing
 	}
 
 	@Override
 	public void pause() {
-		
-		
+		// Do nothing
 	}
 
 	@Override
 	public void resume() {
-		
-		
+		// Do nothing
 	}
 
 	@Override
