@@ -1,5 +1,6 @@
 package com.VierGewinnt;
 
+import com.VierGewinnt.models.TexturesManager;
 import com.VierGewinnt.screens.Splash;
 import com.badlogic.gdx.Game;
 
@@ -10,7 +11,7 @@ public class VierGewinnt extends Game {
 	public void create() {	
 		//AudioManager.loadAudio();  wait for audio
 		
-		//TexturesManager.loadTextures(); wait for images
+		TexturesManager.loadTextures();
 		
 		setScreen(new Splash());
 	}

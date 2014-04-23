@@ -1,6 +1,7 @@
 package com.VierGewinnt.screens;
 
 import com.VierGewinnt.VierGewinnt;
+import com.VierGewinnt.models.TexturesManager;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -38,10 +39,10 @@ public class MainMenu implements Screen {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		SpriteBatch batch = new SpriteBatch();
-		Texture background = new Texture("img/backgroundVG.png");
 		
 		batch.begin();
-		batch.draw(background, 0, 0);
+		batch.draw(TexturesManager.getbG(), 0, 0,
+				Gdx.graphics.getWidth()*1.3f, Gdx.graphics.getHeight());
 		batch.end();
 		
 //		Table.drawDebug(stage);
@@ -63,20 +64,19 @@ public class MainMenu implements Screen {
 
 		Gdx.input.setInputProcessor(stage);
 
-		atlas = new TextureAtlas("ui/button.pack");
-		skin = new Skin(atlas);
+		skin = TexturesManager.getSkin();
 
 		table = new Table(skin);
 		table.setBounds(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-
+		
 		// creating Fonts...
 		white = new BitmapFont(Gdx.files.internal("font/white.fnt"), false);
 		black = new BitmapFont(Gdx.files.internal("font/black.fnt"), false);
 
 		// creating Buttooons :D
 		TextButtonStyle textButtonStyle = new TextButtonStyle();
-		textButtonStyle.up = skin.getDrawable("button.up");
-		textButtonStyle.down = skin.getDrawable("button.down");
+		textButtonStyle.up = skin.getDrawable("btn.up");
+		textButtonStyle.down = skin.getDrawable("btn.down");
 		textButtonStyle.pressedOffsetX = 1;
 		textButtonStyle.pressedOffsetY = -1;
 		textButtonStyle.font = black;
@@ -145,24 +145,25 @@ public class MainMenu implements Screen {
 		table.add(heading);
 		table.getCell(heading).spaceBottom(100);
 		table.row();
-		table.add(buttonComputer);
+		table.add(buttonComputer).prefWidth(Gdx.graphics.getWidth()/2);
 		table.getCell(buttonComputer).spaceBottom(15);
 		table.row();
-		table.add(buttonLokal);
+		table.add(buttonLokal).prefWidth(Gdx.graphics.getWidth()/2);
 		table.getCell(buttonLokal).spaceBottom(15);
 		table.row();
-		table.add(buttonOnline);
+		table.add(buttonOnline).prefWidth(Gdx.graphics.getWidth()/2);
 		table.getCell(buttonOnline).spaceBottom(15);
 		table.row();
-		table.add(buttonRanking);
+		table.add(buttonRanking).prefWidth(Gdx.graphics.getWidth()/2);
 		table.getCell(buttonRanking).spaceBottom(15);
 		table.row();
-		table.add(buttonSettings);
+		table.add(buttonSettings).prefWidth(Gdx.graphics.getWidth()/2);
 		table.getCell(buttonSettings).spaceBottom(15);
 		table.row();
-		table.add(buttonExit);
+		table.add(buttonExit).prefWidth(Gdx.graphics.getWidth()/2);
 		table.debug();
 		stage.addActor(table);
+
 	}
 
 	@Override

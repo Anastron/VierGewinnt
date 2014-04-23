@@ -1,5 +1,6 @@
 package com.VierGewinnt.screens;
 
+import com.VierGewinnt.models.TexturesManager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
@@ -14,10 +15,10 @@ public class ComputerScreen implements Screen{
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
 		SpriteBatch batch = new SpriteBatch();
-		Texture background = new Texture("img/backgroundVG.png");
 		
 		batch.begin();
-		batch.draw(background, 0, 0);
+		batch.draw(TexturesManager.getbG(), 0, 0,
+				Gdx.graphics.getWidth()*1.3f, Gdx.graphics.getHeight());
 		batch.end();
 	}
 

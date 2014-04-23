@@ -90,7 +90,7 @@ public class VGGame implements UnifiedInputHandler {
 				if (x == selectedColumn) {
 					Circle c = getStoneCircle(x, 0);
 
-					srenderer.rect(c.x - c.radius, 0, 2 * c.radius, fieldRectangle.height);
+					srenderer.rect(c.x - c.radius, fieldRectangle.y, 2 * c.radius, fieldRectangle.height);
 				}
 			}
 		}
