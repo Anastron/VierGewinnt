@@ -7,7 +7,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -138,12 +137,12 @@ public class MainMenu implements Screen {
 		
 		
 		// creating heading :)
-		heading = new Label(VierGewinnt.TITLE, new LabelStyle(white, Color.WHITE));
+		heading = new Label(VierGewinnt.TITLE, new LabelStyle(black, Color.ORANGE));
 		heading.setFontScale(3);
 
 		// putting the stuff together...
 		table.add(heading);
-		table.getCell(heading).spaceBottom(100);
+		table.getCell(heading).spaceBottom(150);
 		table.row();
 		table.add(buttonComputer).prefWidth(Gdx.graphics.getWidth()/2);
 		table.getCell(buttonComputer).spaceBottom(15);
