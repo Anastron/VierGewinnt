@@ -76,7 +76,7 @@ public class VGGame implements UnifiedInputHandler {
 		
 		srenderer.begin(ShapeType.Filled);
 		{
-			srenderer.setColor(Color.WHITE);
+			srenderer.setColor(Color.BLUE);
 			srenderer.rect(fieldRectangle.x, fieldRectangle.y, fieldRectangle.width, fieldRectangle.height);
 		}
 		srenderer.end();
@@ -85,7 +85,14 @@ public class VGGame implements UnifiedInputHandler {
 
 		srenderer.begin(ShapeType.Filled);
 		{
+			if(logic.getActivePlayer() == 0x00)
+			{
 			srenderer.setColor(Color.RED);
+			} 
+			else if(logic.getActivePlayer() == 0x01)
+			{
+				srenderer.setColor(Color.YELLOW);
+			}
 			for (int x = 0; x < logic.width; x++) {
 				if (x == selectedColumn) {
 					Circle c = getStoneCircle(x, 0);

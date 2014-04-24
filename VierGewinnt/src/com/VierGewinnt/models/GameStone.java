@@ -15,7 +15,7 @@ public class GameStone {
 	public Color getColor() {
 		switch (Player) {
 		case PLAYER_0:
-			return Color.BLUE;
+			return Color.RED;
 		case PLAYER_1:
 			return Color.YELLOW;
 		default:
