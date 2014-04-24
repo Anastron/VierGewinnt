@@ -22,7 +22,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 public class SettingsScreen implements Screen{
 	
 	private Stage stage;
-	private TextureAtlas atlas;
 	private Skin skin;
 	private Table table;
 	private TextButton buttonProfil, buttonDifficulty, buttonOption, buttonBack;
