@@ -1,6 +1,7 @@
 package com.VierGewinnt.screens;
 
 import com.VierGewinnt.VierGewinnt;
+import com.VierGewinnt.dialogs.NotImplementedDialog;
 import com.VierGewinnt.models.TexturesManager;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -18,6 +19,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.Window.WindowStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 public class MainMenu implements Screen {
@@ -95,6 +97,9 @@ public class MainMenu implements Screen {
 			@Override
 			public void clicked(InputEvent event, float x, float y){
 				((Game) Gdx.app.getApplicationListener()).setScreen(new ComputerScreen());
+//				NotImplementedDialog notImpDia = new NotImplementedDialog("Nicht verfügbar", ???);
+				
+//				notImpDia.show(stage);
 			}
 		});
 		buttonComputer.pad(15);
