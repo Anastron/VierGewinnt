@@ -1,5 +1,7 @@
 package com.VierGewinnt.models;
 
+import com.badlogic.gdx.graphics.Color;
+
 public class VGGameLogic {
 	public final int width;
 	public final int height;
@@ -35,6 +37,55 @@ public class VGGameLogic {
 		return field[x][y];
 	}
 
+
+	public int testForWin()
+	{
+		for(int x = 0; x < 7; x++)
+		{
+			for(int y = 0; y < 6; y++)
+			{
+				// Überprüfen ob Spieler 1 gewonnen hat
+				if((getCatchedPosition(x,y) == GameStone.PLAYER_0) && (getCatchedPosition(x + 1, y) == GameStone.PLAYER_0) && (getCatchedPosition(x + 2, y) == GameStone.PLAYER_0) && (getCatchedPosition(x + 3, y) == GameStone.PLAYER_0))
+				{
+					return GameStone.PLAYER_0;
+				}	
+				if((getCatchedPosition(x, y) == GameStone.PLAYER_0) && (getCatchedPosition(x, y + 1) == GameStone.PLAYER_0) && (getCatchedPosition(x, y + 2) == GameStone.PLAYER_0) && (getCatchedPosition(x, y + 3) == GameStone.PLAYER_0))
+				{
+					return GameStone.PLAYER_0;
+				}
+				if((getCatchedPosition(x, y) == GameStone.PLAYER_0) && (getCatchedPosition(x + 1, y + 1) == GameStone.PLAYER_0) && (getCatchedPosition(x + 2, y + 2) == GameStone.PLAYER_0) && (getCatchedPosition(x + 3, y + 3) == GameStone.PLAYER_0))
+				{
+					return GameStone.PLAYER_0;
+				}
+				if((getCatchedPosition(x, y) == GameStone.PLAYER_0) && (getCatchedPosition(x - 1, y + 1) == GameStone.PLAYER_0) && (getCatchedPosition(x - 2, y + 2) == GameStone.PLAYER_0) && (getCatchedPosition(x - 3, y + 3) == GameStone.PLAYER_0))
+				{
+					return GameStone.PLAYER_0;
+				}
+				
+				// Überprüfen ob Spieler 2 gewonnen hat
+				if((getCatchedPosition(x, y) == GameStone.PLAYER_1) && (getCatchedPosition(x + 1, y) == GameStone.PLAYER_1) && (getCatchedPosition(x + 2, y) == GameStone.PLAYER_1) && (getCatchedPosition(x + 3, y) == GameStone.PLAYER_1))
+				{
+					return GameStone.PLAYER_1;
+				}	
+				if((getCatchedPosition(x, y) == GameStone.PLAYER_1) && (getCatchedPosition(x, y + 1) == GameStone.PLAYER_1) && (getCatchedPosition(x, y + 2) == GameStone.PLAYER_1) && (getCatchedPosition(x, y + 3) == GameStone.PLAYER_1))
+				{
+					return GameStone.PLAYER_1;
+				}
+				if((getCatchedPosition(x, y) == GameStone.PLAYER_1) && (getCatchedPosition(x + 1, y + 1) == GameStone.PLAYER_1) && (getCatchedPosition(x + 2, y + 2) == GameStone.PLAYER_1) && (getCatchedPosition(x + 3, y + 3) == GameStone.PLAYER_1))
+				{
+					return GameStone.PLAYER_1;
+				}
+				if((getCatchedPosition(x, y) == GameStone.PLAYER_1) && (getCatchedPosition(x - 1, y + 1) == GameStone.PLAYER_1) && (getCatchedPosition(x - 2, y + 2) == GameStone.PLAYER_1) && (getCatchedPosition(x - 3, y + 3) == GameStone.PLAYER_1))
+				{
+					return GameStone.PLAYER_1;
+				}
+
+			}
+		}
+		// Falls niemand gewonnen hat wird -1 zurück gegeben
+		return -1;
+	}
+	
 	public boolean empty(int x, int y) {
 		return field[x][y] == null;
 	}
@@ -67,5 +118,15 @@ public class VGGameLogic {
 
 	public boolean canDropStone(int col) {
 		return empty(col, height - 1);
+	}
+	
+	private int getCatchedPosition(int x, int y)
+	{
+		// geschaut ob das Feld vorhanden ist oder nicht
+		
+		if(x < 0 || y < 0 || x > 6 || y > 5)
+			return -1;
+		else 
+			return get(x, y).Player;
 	}
 }
