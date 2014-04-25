@@ -1,5 +1,6 @@
 package com.VierGewinnt.screens;
 
+import com.VierGewinnt.dialogs.WinLokalGameDialog;
 import com.VierGewinnt.models.TexturesManager;
 import com.VierGewinnt.models.VGGame;
 import com.VierGewinnt.unifiedInputProcessor.UnifiedInputProcessor;
@@ -7,17 +8,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+
 
 public class LocalGameScreen implements Screen {
 
@@ -46,6 +39,12 @@ public class LocalGameScreen implements Screen {
 		cam.update();
 
 		game.render(cam);
+		
+		if(game.getGameEnd()){
+			WinLokalGameDialog winDia = new WinLokalGameDialog("Win", TexturesManager.getSkin());
+			Stage stage = new Stage();
+			winDia.show(stage);
+		}
 	}
 
 	@Override

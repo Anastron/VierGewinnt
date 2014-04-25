@@ -1,6 +1,5 @@
 package com.VierGewinnt.models;
 
-import com.badlogic.gdx.graphics.Color;
 
 public class VGGameLogic {
 	public final int width;
@@ -44,6 +43,7 @@ public class VGGameLogic {
 		{
 			for(int y = 0; y < 6; y++)
 			{
+				
 				// Überprüfen ob Spieler 1 gewonnen hat
 				if((getCatchedPosition(x,y) == GameStone.PLAYER_0) && (getCatchedPosition(x + 1, y) == GameStone.PLAYER_0) && (getCatchedPosition(x + 2, y) == GameStone.PLAYER_0) && (getCatchedPosition(x + 3, y) == GameStone.PLAYER_0))
 				{
@@ -127,6 +127,9 @@ public class VGGameLogic {
 		if(x < 0 || y < 0 || x > 6 || y > 5)
 			return -1;
 		else 
+			if(get(x, y) != null)
 			return get(x, y).Player;
+		
+		return -1;
 	}
 }

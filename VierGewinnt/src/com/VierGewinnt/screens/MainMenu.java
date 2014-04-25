@@ -1,7 +1,7 @@
 package com.VierGewinnt.screens;
 
 import com.VierGewinnt.VierGewinnt;
-import com.VierGewinnt.dialogs.NotImplementedDialog;
+import com.VierGewinnt.dialogs.WinLokalGameDialog;
 import com.VierGewinnt.models.TexturesManager;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -19,7 +19,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
-import com.badlogic.gdx.scenes.scene2d.ui.Window.WindowStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 public class MainMenu implements Screen {
@@ -76,8 +75,8 @@ public class MainMenu implements Screen {
 
 		// creating Buttooons :D
 		TextButtonStyle textButtonStyle = new TextButtonStyle();
-		textButtonStyle.up = skin.getDrawable("btn.up");
-		textButtonStyle.down = skin.getDrawable("btn.down");
+		textButtonStyle.up = skin.getDrawable("default-round");
+		textButtonStyle.down = skin.getDrawable("default-round-down");
 		textButtonStyle.pressedOffsetX = 1;
 		textButtonStyle.pressedOffsetY = -1;
 		textButtonStyle.font = black;
@@ -96,7 +95,11 @@ public class MainMenu implements Screen {
 		buttonComputer.addListener(new ClickListener(){
 			@Override
 			public void clicked(InputEvent event, float x, float y){
-				((Game) Gdx.app.getApplicationListener()).setScreen(new ComputerScreen());
+//				((Game) Gdx.app.getApplicationListener()).setScreen(new ComputerScreen());
+				
+				WinLokalGameDialog winDia = new WinLokalGameDialog("Win", TexturesManager.getSkin());
+				Stage stage = new Stage();
+				winDia.show(stage);
 //				NotImplementedDialog notImpDia = new NotImplementedDialog("Nicht verfügbar", ???);
 				
 //				notImpDia.show(stage);
@@ -192,7 +195,7 @@ public class MainMenu implements Screen {
 	public void dispose() {
 		stage.dispose();
 		atlas.dispose();
-		skin.dispose();
+//		skin.dispose();
 		white.dispose();
 		black.dispose();
 	}

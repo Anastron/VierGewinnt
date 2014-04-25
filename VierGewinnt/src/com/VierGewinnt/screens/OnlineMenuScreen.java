@@ -67,8 +67,8 @@ public class OnlineMenuScreen implements Screen{
 		
 		// creating Buttons 
 		TextButtonStyle textButtonStyle = new TextButtonStyle();
-		textButtonStyle.up = skin.getDrawable("btn.up");
-		textButtonStyle.down = skin.getDrawable("btn.down");
+		textButtonStyle.up = skin.getDrawable("default-round");
+		textButtonStyle.down = skin.getDrawable("default-round-down");
 		textButtonStyle.pressedOffsetX = 1;
 		textButtonStyle.pressedOffsetY = -1;
 		textButtonStyle.font = black;

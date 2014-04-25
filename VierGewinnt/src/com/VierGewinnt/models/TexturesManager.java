@@ -19,6 +19,8 @@ public class TexturesManager {
 		btnUp = atlas.findRegion("btn.up");
 		btnDown = atlas.findRegion("btn.down");
 		
+		
+		atlas = new TextureAtlas(Gdx.files.internal("uiskin.atlas"));
 		skin = new Skin(atlas);
 	}
 

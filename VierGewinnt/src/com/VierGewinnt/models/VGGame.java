@@ -14,6 +14,7 @@ public class VGGame implements UnifiedInputHandler {
 	private int selectedColumn = -1;
 	private ShapeRenderer srenderer;
 	private Rectangle fieldRectangle;
+	private boolean gameEnd = false;
 
 	public VGGame(int w, int h) {
 		logic = new VGGameLogic(w, h);
@@ -169,6 +170,11 @@ public class VGGame implements UnifiedInputHandler {
 		logic.dropStone(selectedColumn, new GameStone(logic.getActivePlayer()));
 		logic.switchPlayer();
 		
+		if(logic.testForWin()!=-1){
+			gameEnd = true;
+		}
+			
+		
 		return true;
 	}
 
@@ -186,5 +192,9 @@ public class VGGame implements UnifiedInputHandler {
 		
 		selectedColumn = -1;
 		return false;
+	}
+	
+	public boolean getGameEnd(){
+		return gameEnd;
 	}
 }

@@ -44,3 +44,5 @@ proguard/
 .metadata/
 
 VierGewinnt/bin/
+basename.exe.stackdump
+sh.exe.stackdump
