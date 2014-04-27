@@ -1,10 +1,10 @@
 package com.VierGewinnt.screens;
 
-import com.VierGewinnt.VierGewinnt;
 import com.VierGewinnt.dialogs.NotImplementedDialog;
 import com.VierGewinnt.models.TexturesManager;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
@@ -14,12 +14,13 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+
 
 public class OptionMenuScreen implements Screen{
 
@@ -30,6 +31,10 @@ public class OptionMenuScreen implements Screen{
 	private TextButton buttonPush, buttonSound, buttonFeedback, buttonNoAd, buttonBack;
 	private BitmapFont white, black;
 	private Label heading;
+	
+	private boolean soundOnOrOff;
+	
+	Preferences prefs = Gdx.app.getPreferences("my-preferences");
 	
 	@Override
 	public void render(float delta) {
@@ -80,14 +85,34 @@ public class OptionMenuScreen implements Screen{
 		textButtonStyle.font = black;
 		
 		// der String hinter dem + soll noch je nachdem geändert werden können (muss noch implementiert werden)
-		buttonSound = new TextButton("Sound: " + "An", textButtonStyle);
+		if(prefs.getBoolean("sound") == true)
+		{
+			buttonSound = new TextButton("Sound: " + "An", textButtonStyle);
+		}
+		else if (prefs.getBoolean("sound") == false)
+		{
+			buttonSound = new TextButton("Sound: " + "Aus", textButtonStyle);
+		}
+		else
+		{
+			buttonSound = new TextButton("Sound", textButtonStyle);
+			soundOnOrOff = true;
+		}
+			
+		
 		buttonSound.addListener(new ClickListener(){
 			@Override
-			public void clicked(InputEvent event, float x, float y){
-				// ToDo Safe sharedpreferences
-				
-				NotImplementedDialog nID = new NotImplementedDialog("", TexturesManager.getSkin());
-				nID.show(stage);
+			public void clicked(InputEvent event, float x, float y){	
+				if(prefs.getBoolean("sound") == true)
+				{
+					soundOnOrOff = false;
+				}
+				else if(prefs.getBoolean("sound") == false)
+				{
+					soundOnOrOff = true;
+				}
+				prefs.putBoolean("sound", soundOnOrOff);			
+			
 			}
 		});
 		buttonSound.pad(30);
@@ -96,10 +121,8 @@ public class OptionMenuScreen implements Screen{
 		buttonPush.addListener(new ClickListener(){
 			@Override
 			public void clicked(InputEvent event, float x, float y){
-				// ToDo Safe sharedpreferences
-				
-				NotImplementedDialog nID = new NotImplementedDialog("", TexturesManager.getSkin());
-				nID.show(stage);
+					NotImplementedDialog nID = new NotImplementedDialog("Sound ist aus", TexturesManager.getSkin());
+					nID.show(stage);
 			}
 		});
 		buttonPush.pad(30);
@@ -132,7 +155,7 @@ public class OptionMenuScreen implements Screen{
 		buttonBack.addListener(new ClickListener(){
 			@Override
 			public void clicked(InputEvent event, float x, float y){
-				((Game) Gdx.app.getApplicationListener()).setScreen(new MainMenu());
+				((Game) Gdx.app.getApplicationListener()).setScreen(new SettingsScreen());
 			}
 		});
 		buttonBack.pad(30);
