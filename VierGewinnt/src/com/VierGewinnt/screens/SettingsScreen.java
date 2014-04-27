@@ -84,7 +84,7 @@ public class SettingsScreen implements Screen{
 				nID.show(stage);
 			}
 		});
-		buttonProfil.pad(15);
+		buttonProfil.pad(30);
 		
 		buttonDifficulty = new TextButton("Schwierigkeit", textButtonStyle);
 		buttonDifficulty.addListener(new ClickListener(){
@@ -95,18 +95,16 @@ public class SettingsScreen implements Screen{
 				difDialog.show(stage);
 			}
 		});		
-		buttonDifficulty.pad(15);
+		buttonDifficulty.pad(30);
 		
 		buttonOption = new TextButton("Optionen", textButtonStyle);
 		buttonOption.addListener(new ClickListener(){
 			@Override
 			public void clicked(InputEvent event, float x, float y){
-				// ToDO
-				NotImplementedDialog nID = new NotImplementedDialog("", TexturesManager.getSkin());
-				nID.show(stage);
+				((Game) Gdx.app.getApplicationListener()).setScreen(new OptionMenuScreen());
 			}
 		});
-		buttonOption.pad(15);
+		buttonOption.pad(30);
 		
 		buttonBack = new TextButton("Zurück", textButtonStyle);
 		buttonBack.addListener(new ClickListener(){
@@ -115,7 +113,7 @@ public class SettingsScreen implements Screen{
 				((Game) Gdx.app.getApplicationListener()).setScreen(new MainMenu());
 			}
 		});
-		buttonBack.pad(15);
+		buttonBack.pad(30);
 		
 		// creating heading
 		heading = new Label("Einstellungen", new LabelStyle(black, Color.ORANGE));
@@ -123,7 +121,7 @@ public class SettingsScreen implements Screen{
 		
 		// putting the stuff together...
 		table.add(heading);
-		table.getCell(heading).spaceBottom(150);
+		table.getCell(heading).spaceBottom(100);
 		table.row();
 		table.add(buttonProfil).prefWidth(Gdx.graphics.getWidth()/2);
 		table.getCell(buttonProfil).spaceBottom(15);

@@ -89,7 +89,7 @@ public class MainMenu implements Screen {
 			}
 
 		});
-		buttonExit.pad(15);
+		buttonExit.pad(30);
 		
 		buttonComputer = new TextButton("Computer Game", textButtonStyle);
 		buttonComputer.addListener(new ClickListener(){
@@ -101,7 +101,7 @@ public class MainMenu implements Screen {
 				nID.show(stage);
 			}
 		});
-		buttonComputer.pad(15);
+		buttonComputer.pad(30);
 		
 		buttonLokal = new TextButton("Lokal Multiplayer", textButtonStyle);
 		buttonLokal.addListener(new ClickListener(){
@@ -110,7 +110,7 @@ public class MainMenu implements Screen {
 				((Game) Gdx.app.getApplicationListener()).setScreen(new LocalGameScreen());
 			}
 		});
-		buttonLokal.pad(15);
+		buttonLokal.pad(30);
 		
 		buttonOnline = new TextButton("Online Multiplayer", textButtonStyle);
 		buttonOnline.addListener(new ClickListener(){
@@ -119,7 +119,7 @@ public class MainMenu implements Screen {
 				((Game) Gdx.app.getApplicationListener()).setScreen(new OnlineMenuScreen());
 			}
 		});
-		buttonOnline.pad(15);
+		buttonOnline.pad(30);
 		
 		buttonRanking = new TextButton("Rangliste", textButtonStyle);
 		buttonRanking.addListener(new ClickListener(){
@@ -130,7 +130,7 @@ public class MainMenu implements Screen {
 				nID.show(stage);
 			}
 		});
-		buttonRanking.pad(15);
+		buttonRanking.pad(30);
 		
 		buttonSettings = new TextButton("Einstellungen", textButtonStyle);
 		buttonSettings.addListener(new ClickListener(){
@@ -139,7 +139,7 @@ public class MainMenu implements Screen {
 				((Game) Gdx.app.getApplicationListener()).setScreen(new SettingsScreen());
 			}
 		});
-		buttonSettings.pad(15);
+		buttonSettings.pad(30);
 		
 		
 		// creating heading :)
@@ -148,7 +148,7 @@ public class MainMenu implements Screen {
 
 		// putting the stuff together...
 		table.add(heading);
-		table.getCell(heading).spaceBottom(150);
+		table.getCell(heading).spaceBottom(100);
 		table.row();
 		table.add(buttonComputer).prefWidth(Gdx.graphics.getWidth()/2);
 		table.getCell(buttonComputer).spaceBottom(15);

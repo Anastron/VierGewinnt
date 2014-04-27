@@ -1,5 +1,6 @@
 package com.VierGewinnt.screens;
 
+import com.VierGewinnt.VierGewinnt;
 import com.VierGewinnt.dialogs.NotImplementedDialog;
 import com.VierGewinnt.models.TexturesManager;
 import com.badlogic.gdx.Game;
@@ -9,6 +10,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -19,20 +21,21 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
-public class OnlineMenuScreen implements Screen{
-	
+public class OptionMenuScreen implements Screen{
+
 	private Stage stage;
+	private TextureAtlas atlas;
 	private Skin skin;
 	private Table table;
-	private TextButton buttonFastGame, buttonNormalGame, buttonRanking, buttonAddFriends, buttonFriendsList, buttonBack;
+	private TextButton buttonPush, buttonSound, buttonFeedback, buttonNoAd, buttonBack;
 	private BitmapFont white, black;
 	private Label heading;
-
+	
 	@Override
 	public void render(float delta) {
-		Gdx.gl.glClearColor(1, 1, 0, 0);
+		Gdx.gl.glClearColor(0, 0, 1, 0);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		
+
 		SpriteBatch batch = new SpriteBatch();
 		
 		batch.begin();
@@ -40,6 +43,8 @@ public class OnlineMenuScreen implements Screen{
 				Gdx.graphics.getWidth()*1.3f, Gdx.graphics.getHeight());
 		batch.end();
 		
+//		Table.drawDebug(stage);
+
 		stage.act(delta);
 		stage.draw();
 	}
@@ -48,7 +53,7 @@ public class OnlineMenuScreen implements Screen{
 	public void resize(int width, int height) {
 		stage.setViewport(width, height, true);
 		table.invalidateHierarchy();
-		table.setSize(width, height);	
+		table.setSize(width, height);
 	}
 
 	@Override
@@ -65,8 +70,8 @@ public class OnlineMenuScreen implements Screen{
 		// creating Fonts...
 		white = new BitmapFont(Gdx.files.internal("font/white.fnt"), false);
 		black = new BitmapFont(Gdx.files.internal("font/black.fnt"), false);
-		
-		// creating Buttons 
+
+		// creating Buttooons :D
 		TextButtonStyle textButtonStyle = new TextButtonStyle();
 		textButtonStyle.up = skin.getDrawable("default-round");
 		textButtonStyle.down = skin.getDrawable("default-round-down");
@@ -74,61 +79,54 @@ public class OnlineMenuScreen implements Screen{
 		textButtonStyle.pressedOffsetY = -1;
 		textButtonStyle.font = black;
 		
-		buttonNormalGame = new TextButton("Normales Spiel", textButtonStyle);
-		buttonNormalGame.addListener(new ClickListener(){
+		// der String hinter dem + soll noch je nachdem geändert werden können (muss noch implementiert werden)
+		buttonSound = new TextButton("Sound: " + "An", textButtonStyle);
+		buttonSound.addListener(new ClickListener(){
 			@Override
 			public void clicked(InputEvent event, float x, float y){
-				// ToDo
-				NotImplementedDialog nID = new NotImplementedDialog("", TexturesManager.getSkin());
-				nID.show(stage);
-			}
-		});
-		buttonNormalGame.pad(30);
-		
-		buttonFastGame = new TextButton("Schnelles Spiel", textButtonStyle);
-		buttonFastGame.addListener(new ClickListener(){
-			@Override
-			public void clicked(InputEvent event, float x, float y){
-				// ToDo
-				NotImplementedDialog nID = new NotImplementedDialog("", TexturesManager.getSkin());
-				nID.show(stage);
-			}
-		});
-		buttonFastGame.pad(30);
-		
-		buttonRanking = new TextButton("Rangliste", textButtonStyle);
-		buttonRanking.addListener(new ClickListener(){
-			@Override
-			public void clicked(InputEvent event, float x, float y){
-//				((Game) Gdx.app.getApplicationListener()).setScreen(new RankingScreen());
+				// ToDo Safe sharedpreferences
 				
 				NotImplementedDialog nID = new NotImplementedDialog("", TexturesManager.getSkin());
 				nID.show(stage);
 			}
 		});
-		buttonRanking.pad(30);
+		buttonSound.pad(30);
 		
-		buttonAddFriends = new TextButton("Freund hinzufügen", textButtonStyle);
-		buttonAddFriends.addListener(new ClickListener(){
+		buttonPush = new TextButton("Push: " + "An", textButtonStyle);
+		buttonPush.addListener(new ClickListener(){
 			@Override
 			public void clicked(InputEvent event, float x, float y){
-				//ToDo
+				// ToDo Safe sharedpreferences
+				
 				NotImplementedDialog nID = new NotImplementedDialog("", TexturesManager.getSkin());
 				nID.show(stage);
 			}
 		});
-		buttonAddFriends.pad(30);
+		buttonPush.pad(30);
 		
-		buttonFriendsList = new TextButton("Freunde", textButtonStyle);
-		buttonFriendsList.addListener(new ClickListener(){
+		buttonFeedback = new TextButton("Feedback", textButtonStyle);
+		buttonFeedback.addListener(new ClickListener(){
 			@Override
 			public void clicked(InputEvent event, float x, float y){
-				//ToDo
+				// ToDo Safe sharedpreferences
+				
 				NotImplementedDialog nID = new NotImplementedDialog("", TexturesManager.getSkin());
 				nID.show(stage);
 			}
 		});
-		buttonFriendsList.pad(30);
+		buttonFeedback.pad(30);
+		
+		buttonNoAd = new TextButton("Werbung entfernen", textButtonStyle);
+		buttonNoAd.addListener(new ClickListener(){
+			@Override
+			public void clicked(InputEvent event, float x, float y){
+				// ToDo Safe sharedpreferences
+				
+				NotImplementedDialog nID = new NotImplementedDialog("", TexturesManager.getSkin());
+				nID.show(stage);
+			}
+		});
+		buttonNoAd.pad(30);
 		
 		buttonBack = new TextButton("Zurück", textButtonStyle);
 		buttonBack.addListener(new ClickListener(){
@@ -137,34 +135,31 @@ public class OnlineMenuScreen implements Screen{
 				((Game) Gdx.app.getApplicationListener()).setScreen(new MainMenu());
 			}
 		});
-		buttonBack.pad(15);
+		buttonBack.pad(30);
 		
-		// creating heading
-		heading = new Label("Online Multiplayer", new LabelStyle(white, Color.BLUE));
-		heading.setFontScale(3);
+		// creating heading :)
+		heading = new Label("Optionen", new LabelStyle(white, Color.ORANGE));
+		heading.setFontScale(Gdx.graphics.getDensity()*3);
 		
 		// putting the stuff together...
 		table.add(heading);
 		table.getCell(heading).spaceBottom(100);
 		table.row();
-		table.add(buttonNormalGame).prefWidth(Gdx.graphics.getWidth()/2);
-		table.getCell(buttonNormalGame).spaceBottom(15);
+		table.add(buttonSound).prefWidth(Gdx.graphics.getWidth()/2);
+		table.getCell(buttonSound).spaceBottom(15);
 		table.row();
-		table.add(buttonFastGame).prefWidth(Gdx.graphics.getWidth()/2);
-		table.getCell(buttonFastGame).spaceBottom(15);
+		table.add(buttonPush).prefWidth(Gdx.graphics.getWidth()/2);
+		table.getCell(buttonPush).spaceBottom(15);
 		table.row();
-		table.add(buttonRanking).prefWidth(Gdx.graphics.getWidth()/2);
-		table.getCell(buttonRanking).spaceBottom(15);
+		table.add(buttonFeedback).prefWidth(Gdx.graphics.getWidth()/2);
+		table.getCell(buttonFeedback).spaceBottom(15);
 		table.row();
-		table.add(buttonAddFriends).prefWidth(Gdx.graphics.getWidth()/2);
-		table.getCell(buttonAddFriends).spaceBottom(15);
-		table.row();
-		table.add(buttonFriendsList).prefWidth(Gdx.graphics.getWidth()/2);
-		table.getCell(buttonFriendsList).spaceBottom(15);
+		table.add(buttonNoAd).prefWidth(Gdx.graphics.getWidth()/2);
+		table.getCell(buttonNoAd).spaceBottom(15);
 		table.row();
 		table.add(buttonBack).prefWidth(Gdx.graphics.getWidth()/2);
 		table.getCell(buttonBack).spaceBottom(15);
-		
+		table.debug();
 		stage.addActor(table);
 	}
 
