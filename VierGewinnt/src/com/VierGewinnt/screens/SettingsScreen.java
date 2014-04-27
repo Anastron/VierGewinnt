@@ -1,5 +1,6 @@
 package com.VierGewinnt.screens;
 
+import com.VierGewinnt.dialogs.DifficultyDialog;
 import com.VierGewinnt.dialogs.NotImplementedDialog;
 import com.VierGewinnt.models.TexturesManager;
 import com.badlogic.gdx.Game;
@@ -90,8 +91,8 @@ public class SettingsScreen implements Screen{
 			@Override
 			public void clicked(InputEvent event, float x, float y){
 				// ToDO
-				NotImplementedDialog nID = new NotImplementedDialog("", TexturesManager.getSkin());
-				nID.show(stage);
+				DifficultyDialog difDialog = new DifficultyDialog("Schwierigkeit", TexturesManager.getSkin());
+				difDialog.show(stage);
 			}
 		});		
 		buttonDifficulty.pad(15);
