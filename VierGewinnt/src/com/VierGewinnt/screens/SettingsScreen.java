@@ -1,5 +1,6 @@
 package com.VierGewinnt.screens;
 
+import com.VierGewinnt.dialogs.NotImplementedDialog;
 import com.VierGewinnt.models.TexturesManager;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -77,7 +78,9 @@ public class SettingsScreen implements Screen{
 		buttonProfil.addListener(new ClickListener(){
 			@Override
 			public void clicked(InputEvent event, float x, float y){
-				((Game) Gdx.app.getApplicationListener()).setScreen(new ProfilScreen());
+//				((Game) Gdx.app.getApplicationListener()).setScreen(new ProfilScreen());
+				NotImplementedDialog nID = new NotImplementedDialog("", TexturesManager.getSkin());
+				nID.show(stage);
 			}
 		});
 		buttonProfil.pad(15);
@@ -87,6 +90,8 @@ public class SettingsScreen implements Screen{
 			@Override
 			public void clicked(InputEvent event, float x, float y){
 				// ToDO
+				NotImplementedDialog nID = new NotImplementedDialog("", TexturesManager.getSkin());
+				nID.show(stage);
 			}
 		});		
 		buttonDifficulty.pad(15);
@@ -96,6 +101,8 @@ public class SettingsScreen implements Screen{
 			@Override
 			public void clicked(InputEvent event, float x, float y){
 				// ToDO
+				NotImplementedDialog nID = new NotImplementedDialog("", TexturesManager.getSkin());
+				nID.show(stage);
 			}
 		});
 		buttonOption.pad(15);

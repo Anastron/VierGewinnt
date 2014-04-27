@@ -1,5 +1,6 @@
 package com.VierGewinnt.screens;
 
+import com.VierGewinnt.dialogs.NotImplementedDialog;
 import com.VierGewinnt.models.TexturesManager;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -78,6 +79,8 @@ public class OnlineMenuScreen implements Screen{
 			@Override
 			public void clicked(InputEvent event, float x, float y){
 				// ToDo
+				NotImplementedDialog nID = new NotImplementedDialog("", TexturesManager.getSkin());
+				nID.show(stage);
 			}
 		});
 		buttonNormalGame.pad(15);
@@ -87,6 +90,8 @@ public class OnlineMenuScreen implements Screen{
 			@Override
 			public void clicked(InputEvent event, float x, float y){
 				// ToDo
+				NotImplementedDialog nID = new NotImplementedDialog("", TexturesManager.getSkin());
+				nID.show(stage);
 			}
 		});
 		buttonFastGame.pad(15);
@@ -95,7 +100,10 @@ public class OnlineMenuScreen implements Screen{
 		buttonRanking.addListener(new ClickListener(){
 			@Override
 			public void clicked(InputEvent event, float x, float y){
-				((Game) Gdx.app.getApplicationListener()).setScreen(new RankingScreen());
+//				((Game) Gdx.app.getApplicationListener()).setScreen(new RankingScreen());
+				
+				NotImplementedDialog nID = new NotImplementedDialog("", TexturesManager.getSkin());
+				nID.show(stage);
 			}
 		});
 		buttonRanking.pad(15);
@@ -105,6 +113,8 @@ public class OnlineMenuScreen implements Screen{
 			@Override
 			public void clicked(InputEvent event, float x, float y){
 				//ToDo
+				NotImplementedDialog nID = new NotImplementedDialog("", TexturesManager.getSkin());
+				nID.show(stage);
 			}
 		});
 		buttonAddFriends.pad(15);
@@ -114,6 +124,8 @@ public class OnlineMenuScreen implements Screen{
 			@Override
 			public void clicked(InputEvent event, float x, float y){
 				//ToDo
+				NotImplementedDialog nID = new NotImplementedDialog("", TexturesManager.getSkin());
+				nID.show(stage);
 			}
 		});
 		buttonFriendsList.pad(15);

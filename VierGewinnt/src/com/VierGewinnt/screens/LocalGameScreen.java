@@ -1,6 +1,5 @@
 package com.VierGewinnt.screens;
 
-import com.VierGewinnt.dialogs.WinLokalGameDialog;
 import com.VierGewinnt.models.TexturesManager;
 import com.VierGewinnt.models.VGGame;
 import com.VierGewinnt.unifiedInputProcessor.UnifiedInputProcessor;
@@ -15,6 +14,8 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 public class LocalGameScreen implements Screen {
 
 	private VGGame game;
+	
+	private Stage stage;
 	
 	private OrthographicCamera cam;
 
@@ -40,11 +41,8 @@ public class LocalGameScreen implements Screen {
 
 		game.render(cam);
 		
-		if(game.getGameEnd()){
-			WinLokalGameDialog winDia = new WinLokalGameDialog("Win", TexturesManager.getSkin());
-			Stage stage = new Stage();
-			winDia.show(stage);
-		}
+		stage.act(delta);
+		stage.draw();
 	}
 
 	@Override
@@ -55,7 +53,9 @@ public class LocalGameScreen implements Screen {
 
 	@Override
 	public void show() {
-		game = new VGGame(7, 6);
+		stage = new Stage();
+
+		game = new VGGame(7, 6, stage);
 		Gdx.input.setInputProcessor(new UnifiedInputProcessor(game));
 	}
 
@@ -77,5 +77,6 @@ public class LocalGameScreen implements Screen {
 	@Override
 	public void dispose() {
 		game.dispose();
+		stage.dispose();
 	}
 }

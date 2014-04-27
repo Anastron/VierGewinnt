@@ -20,8 +20,8 @@ public class TexturesManager {
 		btnDown = atlas.findRegion("btn.down");
 		
 		
-		atlas = new TextureAtlas(Gdx.files.internal("uiskin.atlas"));
-		skin = new Skin(atlas);
+//		atlas = new TextureAtlas(Gdx.files.internal("uiskin.json"));
+		skin = new Skin(Gdx.files.internal("uiskin.json"));
 	}
 
 	public static TextureRegion getbG() {

@@ -1,12 +1,15 @@
 package com.VierGewinnt.models;
 
+import com.VierGewinnt.dialogs.WinLokalGameDialog;
 import com.VierGewinnt.unifiedInputProcessor.UnifiedInputHandler;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 
 public class VGGame implements UnifiedInputHandler {
 	private final VGGameLogic logic;
@@ -15,8 +18,10 @@ public class VGGame implements UnifiedInputHandler {
 	private ShapeRenderer srenderer;
 	private Rectangle fieldRectangle;
 	private boolean gameEnd = false;
+	private Stage stage;
 
-	public VGGame(int w, int h) {
+	public VGGame(int w, int h, Stage stage) {
+		this.stage = stage;
 		logic = new VGGameLogic(w, h);
 		
 		srenderer = new ShapeRenderer();
@@ -171,7 +176,9 @@ public class VGGame implements UnifiedInputHandler {
 		logic.switchPlayer();
 		
 		if(logic.testForWin()!=-1){
-			gameEnd = true;
+				WinLokalGameDialog winDia = new WinLokalGameDialog("Win", TexturesManager.getSkin(), logic.getActivePlayer());
+				winDia.show(stage);
+				Gdx.input.setInputProcessor(stage);
 		}
 			
 		

@@ -1,7 +1,7 @@
 package com.VierGewinnt.screens;
 
 import com.VierGewinnt.VierGewinnt;
-import com.VierGewinnt.dialogs.WinLokalGameDialog;
+import com.VierGewinnt.dialogs.NotImplementedDialog;
 import com.VierGewinnt.models.TexturesManager;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -97,12 +97,8 @@ public class MainMenu implements Screen {
 			public void clicked(InputEvent event, float x, float y){
 //				((Game) Gdx.app.getApplicationListener()).setScreen(new ComputerScreen());
 				
-				WinLokalGameDialog winDia = new WinLokalGameDialog("Win", TexturesManager.getSkin());
-				Stage stage = new Stage();
-				winDia.show(stage);
-//				NotImplementedDialog notImpDia = new NotImplementedDialog("Nicht verfügbar", ???);
-				
-//				notImpDia.show(stage);
+				NotImplementedDialog nID = new NotImplementedDialog("", TexturesManager.getSkin());
+				nID.show(stage);
 			}
 		});
 		buttonComputer.pad(15);
@@ -129,7 +125,9 @@ public class MainMenu implements Screen {
 		buttonRanking.addListener(new ClickListener(){
 			@Override
 			public void clicked(InputEvent event, float x, float y){
-				((Game) Gdx.app.getApplicationListener()).setScreen(new RankingScreen());
+//				((Game) Gdx.app.getApplicationListener()).setScreen(new RankingScreen());
+				NotImplementedDialog nID = new NotImplementedDialog("", TexturesManager.getSkin());
+				nID.show(stage);
 			}
 		});
 		buttonRanking.pad(15);
@@ -146,7 +144,7 @@ public class MainMenu implements Screen {
 		
 		// creating heading :)
 		heading = new Label(VierGewinnt.TITLE, new LabelStyle(black, Color.ORANGE));
-		heading.setFontScale(3);
+		heading.setFontScale(Gdx.graphics.getDensity()*3);
 
 		// putting the stuff together...
 		table.add(heading);
