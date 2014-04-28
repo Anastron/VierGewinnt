@@ -15,6 +15,6 @@ public class NotImplementedDialog extends Dialog{
 
 	@Override
 	protected void result(Object object){
-		
+		//NOP
 	}
 }

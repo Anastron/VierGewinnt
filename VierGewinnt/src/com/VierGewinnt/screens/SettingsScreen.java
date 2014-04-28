@@ -26,7 +26,8 @@ public class SettingsScreen implements Screen{
 	private Skin skin;
 	private Table table;
 	private TextButton buttonProfil, buttonDifficulty, buttonOption, buttonBack;
-	private BitmapFont white, black;
+//	private BitmapFont white
+	private BitmapFont black;
 	private Label heading;
 
 	@Override
@@ -64,7 +65,7 @@ public class SettingsScreen implements Screen{
 		table.setBounds(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		
 		// creating Fonts...
-		white = new BitmapFont(Gdx.files.internal("font/white.fnt"), false);
+//		white = new BitmapFont(Gdx.files.internal("font/white.fnt"), false);
 		black = new BitmapFont(Gdx.files.internal("font/black.fnt"), false);
 		
 		// creating Buttons 
