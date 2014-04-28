@@ -144,7 +144,7 @@ public class MainMenuScreen implements Screen {
 			    Client client = new Client();
 			    client.start();
 			    try {
-					client.connect(5000, "127.0.0.1", 23965);
+					client.connect(5000, "192.168.0.11", 23965);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
