@@ -4,6 +4,7 @@ import com.VierGewinnt.VierGewinnt;
 import com.VierGewinnt.dialogs.LoginGoodDialog;
 import com.VierGewinnt.dialogs.NotImplementedDialog;
 import com.VierGewinnt.models.TexturesManager;
+import com.VierGewinnt.network.VGNetworkAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
@@ -22,6 +23,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField.TextFieldListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.esotericsoftware.kryonet.Client;
+import com.viergewinnt.server.tcp_messages.client.RegisterRequest;
 
 public class LoginScreen implements Screen{
 	
@@ -34,8 +37,12 @@ public class LoginScreen implements Screen{
 	private Label heading, loginLabel, nameLabel;
 	private TextField txtUsername;
 	
-	private String usernameStr = "";
+	private VGNetworkAdapter client;
 
+	public LoginScreen()
+	{
+		client = VierGewinnt.getInstance().getNetworkClient();
+	}
 	@Override
 	public void render(float delta) {
 		Gdx.gl.glClearColor(0, 0, 1, 0);
@@ -88,9 +95,10 @@ public class LoginScreen implements Screen{
 		buttonRegister.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
+				client.send(new RegisterRequest(txtUsername.getText()));
 				
-				LoginGoodDialog loginGoodDia = new LoginGoodDialog("Willkommen", TexturesManager.getSkin(), usernameStr);
-				loginGoodDia.show(stage);
+				// LoginGoodDialog loginGoodDia = new LoginGoodDialog("Willkommen", TexturesManager.getSkin());
+				// loginGoodDia.show(stage);
 			}
 
 		});
@@ -109,12 +117,6 @@ public class LoginScreen implements Screen{
 		// creating TextField
 		txtUsername = new TextField("", TexturesManager.getSkin());
 		txtUsername.setMessageText("Username");
-		txtUsername.setTextFieldListener(new TextFieldListener() {
-	            @Override
-	            public void keyTyped(TextField textField, char key) {
-	                    usernameStr = txtUsername.getText();
-	            }
-	        });
 		
 		table.add(heading);
 		table.getCell(heading).spaceBottom(100);
