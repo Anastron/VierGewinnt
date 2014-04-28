@@ -1,6 +1,7 @@
 package com.VierGewinnt.screens;
 
 import com.VierGewinnt.VierGewinnt;
+import com.VierGewinnt.dialogs.LoginGoodDialog;
 import com.VierGewinnt.dialogs.NotImplementedDialog;
 import com.VierGewinnt.models.TexturesManager;
 import com.badlogic.gdx.Gdx;
@@ -88,8 +89,8 @@ public class LoginScreen implements Screen{
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				
-				NotImplementedDialog nID = new NotImplementedDialog(usernameStr, TexturesManager.getSkin());
-				nID.show(stage);
+				LoginGoodDialog loginGoodDia = new LoginGoodDialog("Willkommen", TexturesManager.getSkin(), usernameStr);
+				loginGoodDia.show(stage);
 			}
 
 		});
