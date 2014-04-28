@@ -8,7 +8,6 @@ import java.util.List;
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
-import com.viergewinnt.server.GameClient;
 import com.viergewinnt.server.VGServer;
 import com.viergewinnt.server.tcp_messages.ClientMessage;
 import com.viergewinnt.server.tcp_messages.ServerMessage;

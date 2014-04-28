@@ -173,7 +173,8 @@ public class LoginScreen implements Screen, VGNetworkListener {
 
 		} else if (msg instanceof RegisterDenied) {
 			// wenn man ned nei kommt
-			LoginFailDialog loginFailDia = new LoginFailDialog("Register lief schief", TexturesManager.getSkin());
+
+			LoginFailDialog loginFailDia = new LoginFailDialog("Register lief schief", TexturesManager.getSkin(), ((RegisterDenied) msg).reason.toString());
 			loginFailDia.show(stage);
 		}
 	}
