@@ -1,5 +1,6 @@
 package com.VierGewinnt.screens;
 
+import com.VierGewinnt.VierGewinnt;
 import com.VierGewinnt.dialogs.NotImplementedDialog;
 import com.VierGewinnt.models.TexturesManager;
 import com.badlogic.gdx.Game;
@@ -33,7 +34,6 @@ public class OptionMenuScreen implements Screen{
 	private boolean soundOnOrOff;
 	private boolean pushOnOrOff;
 	
-	Preferences prefs = Gdx.app.getPreferences("my-preferences");
 	
 	@Override
 	public void render(float delta) {
@@ -83,48 +83,46 @@ public class OptionMenuScreen implements Screen{
 		textButtonStyle.pressedOffsetY = -1;
 		textButtonStyle.font = black;
 		
-		// der String hinter dem + soll noch je nachdem geändert werden können (muss noch implementiert werden)
-		if(prefs.getBoolean("sound") == true)
+		buttonSound = new TextButton("Sound: An", textButtonStyle);
+		
+		if(VierGewinnt.prefs.getBoolean("sound") == true)
 		{
-			buttonSound = new TextButton("Sound: " + "An", textButtonStyle);
+			
 		}
-		else if (prefs.getBoolean("sound") == false)
+		else if (VierGewinnt.prefs.getBoolean("sound") == false)
 		{
-			buttonSound = new TextButton("Sound: " + "Aus", textButtonStyle);
+			buttonSound.setText("Sound: Aus");
 		}
-		else
-		{
-			buttonSound = new TextButton("Sound", textButtonStyle);
-			soundOnOrOff = true;
-		}
+		
 			
 		
 		buttonSound.addListener(new ClickListener(){
 			@Override
 			public void clicked(InputEvent event, float x, float y){	
-				if(prefs.getBoolean("sound") == true)
+				if(VierGewinnt.prefs.getBoolean("sound") == true)
 				{
 					soundOnOrOff = false;
 				}
-				else if(prefs.getBoolean("sound") == false)
+				else if(VierGewinnt.prefs.getBoolean("sound") == false)
 				{
 					soundOnOrOff = true;
 				}
-				prefs.putBoolean("sound", soundOnOrOff);
-				prefs.flush();
+				VierGewinnt.prefs.putBoolean("sound", soundOnOrOff);
+				VierGewinnt.prefs.flush();
 				((Game) Gdx.app.getApplicationListener()).setScreen(new OptionMenuScreen());				
 			}
 		});
 		buttonSound.pad(30);
 		
+		buttonPush = new TextButton("Push: An", textButtonStyle);
 		
-		if(prefs.getBoolean("push") == true)
+		if(VierGewinnt.prefs.getBoolean("push") == true)
 		{
-			buttonPush = new TextButton("Push: " + "An", textButtonStyle);
+			buttonPush.setText("Push: An");
 		}
-		else if (prefs.getBoolean("push") == false)
+		else if (VierGewinnt.prefs.getBoolean("push") == false)
 		{
-			buttonPush = new TextButton("Push: " + "Aus", textButtonStyle);
+			buttonPush.setText("Push: Aus");
 		}
 		else
 		{
@@ -134,16 +132,16 @@ public class OptionMenuScreen implements Screen{
 		buttonPush.addListener(new ClickListener(){
 			@Override
 			public void clicked(InputEvent event, float x, float y){
-				if(prefs.getBoolean("push") == true)
+				if(VierGewinnt.prefs.getBoolean("push") == true)
 				{
 					pushOnOrOff = false;
 				}
-				else if(prefs.getBoolean("push") == false)
+				else if(VierGewinnt.prefs.getBoolean("push") == false)
 				{
 					pushOnOrOff = true;
 				}
-				prefs.putBoolean("push", pushOnOrOff);
-				prefs.flush();
+				VierGewinnt.prefs.putBoolean("push", pushOnOrOff);
+				VierGewinnt.prefs.flush();
 				((Game) Gdx.app.getApplicationListener()).setScreen(new OptionMenuScreen());
 			}
 		});
