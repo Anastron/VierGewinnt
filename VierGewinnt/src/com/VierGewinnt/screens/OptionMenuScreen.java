@@ -111,6 +111,7 @@ public class OptionMenuScreen implements Screen{
 					soundOnOrOff = true;
 				}
 				prefs.putBoolean("sound", soundOnOrOff);
+				prefs.flush();
 				((Game) Gdx.app.getApplicationListener()).setScreen(new OptionMenuScreen());				
 			}
 		});
@@ -142,6 +143,7 @@ public class OptionMenuScreen implements Screen{
 					pushOnOrOff = true;
 				}
 				prefs.putBoolean("push", pushOnOrOff);
+				prefs.flush();
 				((Game) Gdx.app.getApplicationListener()).setScreen(new OptionMenuScreen());
 			}
 		});

@@ -137,7 +137,7 @@ public class OnlineMenuScreen implements Screen{
 				((Game) Gdx.app.getApplicationListener()).setScreen(new MainMenu());
 			}
 		});
-		buttonBack.pad(15);
+		buttonBack.pad(30);
 		
 		// creating heading
 		heading = new Label("Online Multiplayer", new LabelStyle(white, Color.BLUE));

@@ -10,8 +10,8 @@ public class Main {
 		cfg.title = VierGewinnt.TITLE + " v" + VierGewinnt.VERSION;
 		cfg.vSyncEnabled = true;
 		cfg.useGL20 = true;
-		cfg.width = 600;
-		cfg.height = 800;
+		cfg.width = 720;
+		cfg.height = 1080;
 		
 		new LwjglApplication(new VierGewinnt(), cfg);
 	}
