@@ -67,5 +67,6 @@ public abstract class GameServer extends Listener {
 	
 	public void send(GameClient client, ServerMessage msg) {
 		server.sendToTCP(client.getConnectionID(), msg);
+		System.out.println("[SEND] -->" + client.getUsername() + " :: " + client.toString());
 	}
 }

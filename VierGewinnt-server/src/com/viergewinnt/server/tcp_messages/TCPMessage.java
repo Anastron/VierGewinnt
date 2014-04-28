@@ -13,7 +13,7 @@ import com.viergewinnt.server.tcp_messages.server.RegisterDenied;
 public abstract class TCPMessage {
 
 	public TCPMessage() {
-		// TODO Auto-generated constructor stub
+		// NOP
 	}
 
 	public static void registerKryo(Kryo kryo) {
@@ -28,7 +28,6 @@ public abstract class TCPMessage {
 	
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
 		return ReflectionToStringBuilder.toString(this, ToStringStyle.SHORT_PREFIX_STYLE);
 	}
 }

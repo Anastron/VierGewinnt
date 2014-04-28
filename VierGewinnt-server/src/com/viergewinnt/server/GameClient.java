@@ -37,4 +37,16 @@ public class GameClient {
 		userid = ui;
 		usersecret = us;
 	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public String getUserID() {
+		return userid;
+	}
+
+	public String getUserSecret() {
+		return usersecret;
+	}
 }
