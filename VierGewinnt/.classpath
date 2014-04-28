@@ -4,5 +4,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry exported="true" kind="lib" path="libs/gdx.jar" sourcepath="libs/gdx-sources.jar"/>
 	<classpathentry kind="lib" path="libs/kryonet-2.21-all.jar"/>
+	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/VierGewinnt-server"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
