@@ -22,6 +22,7 @@ public abstract class TCPMessage {
 		
 		kryo.register(RegisterRequest.class);
 		kryo.register(RegisterDenied.class);
+		kryo.register(RegisterDenied.RegisterDeniedReason.class);
 		kryo.register(RegisterAcknowledged.class);
 	}
 	

@@ -6,7 +6,8 @@ public class RegisterDenied extends ServerMessage {
 	public enum RegisterDeniedReason {
 		DUPLICATE_USERNAME,
 		IP_BANNED,
-		ALREADY_LOGGED_IN;
+		ALREADY_LOGGED_IN,
+		INVALID_USERNAME;
 		
 		@Override
 		public String toString() {
@@ -17,6 +18,8 @@ public class RegisterDenied extends ServerMessage {
 				return "Your IP was banned";
 			case ALREADY_LOGGED_IN:
 				return "You are already logged in";
+			case INVALID_USERNAME:
+				return "Your username is not valid";
 			default:
 				return "<?>";
 			}

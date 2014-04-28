@@ -50,8 +50,11 @@ public class VGServer extends GameServer {
 	}
 	
 	private void handleRegisterRequest(GameClient client, RegisterRequest msg) {
-		if (client.isLoggedIn() || msg.username.isEmpty()) {
+		if (client.isLoggedIn()) {
 			send(client, new RegisterDenied(RegisterDeniedReason.ALREADY_LOGGED_IN));
+			
+		} else if (msg.username.isEmpty()) {
+				send(client, new RegisterDenied(RegisterDeniedReason.INVALID_USERNAME));
 		} else {
 			String un = msg.username;
 			String ui = UUID.randomUUID().toString();

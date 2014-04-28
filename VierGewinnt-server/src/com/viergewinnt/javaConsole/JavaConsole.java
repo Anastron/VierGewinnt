@@ -66,9 +66,9 @@ public class JavaConsole extends WindowAdapter implements WindowListener, Action
 		textArea=new JTextArea();
 		textArea.setCaret(new BlockCaret()); //DWM 02-07-2012
 		textArea.setBackground(Color.black); //DWM 02-07-2012
-		textArea.setForeground(Color.white); //DWM 02-07-2012
+		textArea.setForeground(Color.GREEN); //DWM 02-07-2012
 		textArea.setCaretColor(textArea.getForeground()); //DWM 02-07-2012
-		textArea.setFont(new Font("Courier New", Font.PLAIN, 12)); //DWM 02-07-2012
+		textArea.setFont(new Font("Consolas", Font.PLAIN, 12)); //DWM 02-07-2012
 		textArea.setLineWrap(true); //DWM 02-07-2012
 		textArea.setWrapStyleWord(true); //DWM 02-07-2012
 		textArea.setEditable(false); //DWM 02-07-2012
