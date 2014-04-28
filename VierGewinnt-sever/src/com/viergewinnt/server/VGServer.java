@@ -1,11 +1,8 @@
 package com.viergewinnt.server;
 
-import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Server;
 import com.viergewinnt.server.tcp_messages.TCPMessage;
-import com.viergewinnt.server.tcp_messages.client.LoginRequest;
-import com.viergewinnt.server.tcp_messages.server.LoginAcknowledged;
 
 public class VGServer extends GameServer {
 	

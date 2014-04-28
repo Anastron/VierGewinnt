@@ -23,6 +23,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.esotericsoftware.kryonet.Client;
+import com.viergewinnt.server.tcp_messages.TCPMessage;
+import com.viergewinnt.server.tcp_messages.client.LoginRequest;
+import com.viergewinnt.server.tcp_messages.server.LoginAcknowledged;
 
 public class MainMenuScreen implements Screen {
 
@@ -141,15 +144,19 @@ public class MainMenuScreen implements Screen {
 				
 				//TODO OMGLOL
 				
-/*			    Client client = new Client();
+			    Client client = new Client();
 			    client.start();
+			    
+			    TCPMessage.registerKryo(client.getKryo());
+			    
 			    try {
-					client.connect(5000, "192.168.0.11", 23965);
+					client.connect(5000, "127.0.0.1", 23965);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
 
-			    client.sendTCP("Here is the request");	*/
+			    client.sendTCP(new LoginRequest());
+			    client.sendTCP(new LoginAcknowledged());
 			}
 		});
 		buttonSettings.pad(30);
