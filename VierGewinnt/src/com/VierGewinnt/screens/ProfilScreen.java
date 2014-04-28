@@ -106,7 +106,7 @@ public class ProfilScreen implements Screen{
 		playerName = new Label("Name", new LabelStyle(white, Color.GREEN));  // Spieler Name soll von der einer DB aufgerufen werden
 		playerName.setFontScale(Gdx.graphics.getDensity()*3);
 		
-		rankPlace = new Label("Ranke: " + "2", new LabelStyle(white, Color.GREEN)); // anstatt 2 soll der Rang geladen werden
+		rankPlace = new Label("Rank: " + "2", new LabelStyle(white, Color.GREEN)); // anstatt 2 soll der Rang geladen werden
 		rankPlace.setFontScale(Gdx.graphics.getDensity()*3);
 
 		// putting the stuff together...
