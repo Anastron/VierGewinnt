@@ -1,7 +1,7 @@
 package com.VierGewinnt.dialogs;
 
 import com.VierGewinnt.screens.LocalGameScreen;
-import com.VierGewinnt.screens.MainMenu;
+import com.VierGewinnt.screens.MainMenuScreen;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
@@ -30,7 +30,7 @@ public class WinLokalGameDialog extends Dialog{
 		if((Boolean) object){
 			((Game) Gdx.app.getApplicationListener()).setScreen(new LocalGameScreen());
 		}else
-			((Game) Gdx.app.getApplicationListener()).setScreen(new MainMenu());
+			((Game) Gdx.app.getApplicationListener()).setScreen(new MainMenuScreen());
 
 		
 		

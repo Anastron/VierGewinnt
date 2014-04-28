@@ -37,7 +37,7 @@ public class Splash implements Screen {
 		splash = new Sprite(splashTexture);		
 		splash.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		
-		((Game) Gdx.app.getApplicationListener()).setScreen(new MainMenu());
+		((Game) Gdx.app.getApplicationListener()).setScreen(new MainMenuScreen());
 		
 	}
 

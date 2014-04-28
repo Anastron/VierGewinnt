@@ -1,5 +1,7 @@
 package com.VierGewinnt.screens;
 
+import java.io.IOException;
+
 import com.VierGewinnt.VierGewinnt;
 import com.VierGewinnt.dialogs.NotImplementedDialog;
 import com.VierGewinnt.models.TexturesManager;
@@ -20,8 +22,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.esotericsoftware.kryonet.Client;
 
-public class MainMenu implements Screen {
+public class MainMenuScreen implements Screen {
 
 	private Stage stage;
 	private TextureAtlas atlas;
@@ -31,8 +34,6 @@ public class MainMenu implements Screen {
 	private BitmapFont white, black;
 	private Label heading;
 	
-
-
 	@Override
 	public void render(float delta) {
 		Gdx.gl.glClearColor(0, 0, 1, 0);
@@ -136,7 +137,19 @@ public class MainMenu implements Screen {
 		buttonSettings.addListener(new ClickListener(){
 			@Override
 			public void clicked(InputEvent event, float x, float y){
-				((Game) Gdx.app.getApplicationListener()).setScreen(new SettingsScreen());
+				//((Game) Gdx.app.getApplicationListener()).setScreen(new SettingsScreen());
+				
+				//TODO OMGLOL
+				
+			    Client client = new Client();
+			    client.start();
+			    try {
+					client.connect(5000, "127.0.0.1", 23965);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+
+			    client.sendTCP("Here is the request");	
 			}
 		});
 		buttonSettings.pad(30);
