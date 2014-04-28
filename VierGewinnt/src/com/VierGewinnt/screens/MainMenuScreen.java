@@ -137,11 +137,11 @@ public class MainMenuScreen implements Screen {
 		buttonSettings.addListener(new ClickListener(){
 			@Override
 			public void clicked(InputEvent event, float x, float y){
-				//((Game) Gdx.app.getApplicationListener()).setScreen(new SettingsScreen());
+				((Game) Gdx.app.getApplicationListener()).setScreen(new SettingsScreen());
 				
 				//TODO OMGLOL
 				
-			    Client client = new Client();
+/*			    Client client = new Client();
 			    client.start();
 			    try {
 					client.connect(5000, "192.168.0.11", 23965);
@@ -149,7 +149,7 @@ public class MainMenuScreen implements Screen {
 					e.printStackTrace();
 				}
 
-			    client.sendTCP("Here is the request");	
+			    client.sendTCP("Here is the request");	*/
 			}
 		});
 		buttonSettings.pad(30);
