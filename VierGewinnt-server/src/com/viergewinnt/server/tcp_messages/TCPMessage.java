@@ -1,6 +1,7 @@
 package com.viergewinnt.server.tcp_messages;
 
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 import com.esotericsoftware.kryo.Kryo;
 import com.viergewinnt.server.tcp_messages.client.LoginRequest;
@@ -27,6 +28,6 @@ public abstract class TCPMessage {
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
-		return ReflectionToStringBuilder.toString(this);
+		return ReflectionToStringBuilder.toString(this, ToStringStyle.SHORT_PREFIX_STYLE);
 	}
 }

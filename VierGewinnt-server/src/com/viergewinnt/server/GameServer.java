@@ -1,5 +1,6 @@
 package com.viergewinnt.server;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,8 +14,13 @@ public abstract class GameServer extends Listener {
 	
 	protected List<GameClient> ActiveConnections;
 	
-	public GameServer(Server s) {
+	public GameServer(Server s, int port) throws IOException {
 		server = s;
+		
+		server.start();
+		server.bind(port);
+		server.addListener(this);
+		
 		ActiveConnections = new ArrayList<>();
 	}
 	
@@ -36,19 +42,27 @@ public abstract class GameServer extends Listener {
 	public void connected(Connection connection) {
 		ActiveConnections.add(new GameClient(connection));
 		
-		System.out.println("[CONNECTED]: " + connection.getID());
+		System.out.println("[CONNECTED]" + connection.getID());
 		
+		showDebugPlayerList();
+	}
+	
+	@Override
+	public void disconnected(Connection connection) {
+		GameClient client = GetClient(connection);
+		ActiveConnections.remove(client);
+		System.out.println("[DISCONNECTED]" + client.toString());
+		
+		showDebugPlayerList();
+	}
+	
+	private void showDebugPlayerList() {
+		System.out.println();
 		System.out.println("######## CONNECTED CLIENTS ########");
 		for (GameClient client : ActiveConnections)
 			System.out.println(client.toString());
 		System.out.println("###################################");
 		System.out.println();
-	}
-	
-	@Override
-	public void disconnected(Connection connection) {
-		ActiveConnections.remove(GetClient(connection));
-		System.out.println("[DISCONNECTED]: " + connection.getID());
 	}
 	
 	public void send(GameClient client, ServerMessage msg) {
