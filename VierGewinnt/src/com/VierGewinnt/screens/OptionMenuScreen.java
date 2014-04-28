@@ -10,7 +10,6 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -25,7 +24,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 public class OptionMenuScreen implements Screen{
 
 	private Stage stage;
-	private TextureAtlas atlas;
 	private Skin skin;
 	private Table table;
 	private TextButton buttonPush, buttonSound, buttonFeedback, buttonNoAd, buttonBack;
@@ -33,6 +31,7 @@ public class OptionMenuScreen implements Screen{
 	private Label heading;
 	
 	private boolean soundOnOrOff;
+	private boolean pushOnOrOff;
 	
 	Preferences prefs = Gdx.app.getPreferences("my-preferences");
 	
@@ -111,18 +110,39 @@ public class OptionMenuScreen implements Screen{
 				{
 					soundOnOrOff = true;
 				}
-				prefs.putBoolean("sound", soundOnOrOff);			
-			
+				prefs.putBoolean("sound", soundOnOrOff);
+				((Game) Gdx.app.getApplicationListener()).setScreen(new OptionMenuScreen());				
 			}
 		});
 		buttonSound.pad(30);
 		
-		buttonPush = new TextButton("Push: " + "An", textButtonStyle);
+		
+		if(prefs.getBoolean("push") == true)
+		{
+			buttonPush = new TextButton("Push: " + "An", textButtonStyle);
+		}
+		else if (prefs.getBoolean("push") == false)
+		{
+			buttonPush = new TextButton("Push: " + "Aus", textButtonStyle);
+		}
+		else
+		{
+			buttonSound = new TextButton("Push", textButtonStyle);
+			pushOnOrOff = true;
+		}
 		buttonPush.addListener(new ClickListener(){
 			@Override
 			public void clicked(InputEvent event, float x, float y){
-					NotImplementedDialog nID = new NotImplementedDialog("Sound ist aus", TexturesManager.getSkin());
-					nID.show(stage);
+				if(prefs.getBoolean("push") == true)
+				{
+					pushOnOrOff = false;
+				}
+				else if(prefs.getBoolean("push") == false)
+				{
+					pushOnOrOff = true;
+				}
+				prefs.putBoolean("push", pushOnOrOff);
+				((Game) Gdx.app.getApplicationListener()).setScreen(new OptionMenuScreen());
 			}
 		});
 		buttonPush.pad(30);
