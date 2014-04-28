@@ -22,7 +22,12 @@ public class VierGewinnt extends Game {
 		
 		//AudioManager.loadAudio();  wait for audio
 		
-		network.connect();
+		try {
+			network.connect();			
+		} catch (Exception e) {
+			e.printStackTrace();
+			network = null;
+		}
 		
 		TexturesManager.loadTextures();
 		

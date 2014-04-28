@@ -6,6 +6,7 @@ import java.util.List;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
+import com.viergewinnt.server.tcp_messages.ServerMessage;
 
 public abstract class GameServer extends Listener {
 	protected Server server;
@@ -48,5 +49,9 @@ public abstract class GameServer extends Listener {
 	public void disconnected(Connection connection) {
 		ActiveConnections.remove(GetClient(connection));
 		System.out.println("[DISCONNECTED]: " + connection.getID());
+	}
+	
+	public void send(GameClient client, ServerMessage msg) {
+		server.sendToTCP(client.getConnectionID(), msg);
 	}
 }

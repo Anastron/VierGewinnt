@@ -1,5 +1,7 @@
 package com.viergewinnt.server.tcp_messages;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+
 import com.esotericsoftware.kryo.Kryo;
 import com.viergewinnt.server.tcp_messages.client.LoginRequest;
 import com.viergewinnt.server.tcp_messages.client.RegisterRequest;
@@ -20,5 +22,11 @@ public abstract class TCPMessage {
 		kryo.register(RegisterRequest.class);
 		kryo.register(RegisterDenied.class);
 		kryo.register(RegisterAcknowledged.class);
+	}
+	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return ReflectionToStringBuilder.toString(this);
 	}
 }

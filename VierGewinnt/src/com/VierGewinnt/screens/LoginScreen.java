@@ -2,9 +2,9 @@ package com.VierGewinnt.screens;
 
 import com.VierGewinnt.VierGewinnt;
 import com.VierGewinnt.dialogs.LoginGoodDialog;
-import com.VierGewinnt.dialogs.NotImplementedDialog;
 import com.VierGewinnt.models.TexturesManager;
 import com.VierGewinnt.network.VGNetworkAdapter;
+import com.VierGewinnt.network.VGNetworkListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
@@ -15,18 +15,20 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
-import com.badlogic.gdx.scenes.scene2d.ui.TextField.TextFieldListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.esotericsoftware.kryonet.Client;
+import com.esotericsoftware.kryonet.Connection;
+import com.viergewinnt.server.tcp_messages.ServerMessage;
 import com.viergewinnt.server.tcp_messages.client.RegisterRequest;
+import com.viergewinnt.server.tcp_messages.server.RegisterAcknowledged;
+import com.viergewinnt.server.tcp_messages.server.RegisterDenied;
 
-public class LoginScreen implements Screen{
+public class LoginScreen implements Screen, VGNetworkListener {
 	
 	private Stage stage;
 	private TextureAtlas atlas;
@@ -42,7 +44,11 @@ public class LoginScreen implements Screen{
 	public LoginScreen()
 	{
 		client = VierGewinnt.getInstance().getNetworkClient();
+		
+		client.addListener(RegisterAcknowledged.class, this);
+		client.addListener(RegisterDenied.class, this);
 	}
+	
 	@Override
 	public void render(float delta) {
 		Gdx.gl.glClearColor(0, 0, 1, 0);
@@ -96,9 +102,6 @@ public class LoginScreen implements Screen{
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				client.send(new RegisterRequest(txtUsername.getText()));
-				
-				// LoginGoodDialog loginGoodDia = new LoginGoodDialog("Willkommen", TexturesManager.getSkin());
-				// loginGoodDia.show(stage);
 			}
 
 		});
@@ -157,6 +160,17 @@ public class LoginScreen implements Screen{
 	public void dispose() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public void recieve(Connection connection, ServerMessage msg) {
+		if (msg instanceof RegisterAcknowledged) {
+			LoginGoodDialog loginGoodDia = new LoginGoodDialog("Willkommen", TexturesManager.getSkin(), ((RegisterAcknowledged)msg).username);
+			loginGoodDia.show(stage);
+		} else if (msg instanceof RegisterDenied) {
+			// LoginGoodDialog loginGoodDia = new LoginGoodDialog("Willkommen", TexturesManager.getSkin());
+			// loginGoodDia.show(stage);
+		}
 	}
 
 }
