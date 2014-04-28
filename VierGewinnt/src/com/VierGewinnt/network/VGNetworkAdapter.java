@@ -17,34 +17,40 @@ import com.viergewinnt.server.tcp_messages.TCPMessage;
 public class VGNetworkAdapter {
 	private final static String SERVER_IP = "127.0.0.1";
 	private final static int SERVER_TIMEOUT = 5000;
-	
+
 	private Client networkClient = null;
-	
+
 	private HashMap<Class<? extends ServerMessage>, List<VGNetworkListener>> listener = new HashMap<Class<? extends ServerMessage>, List<VGNetworkListener>>();
-	
+
+	private VGUser user;
+
 	public VGNetworkAdapter() {
-		
+
 	}
-	
+
+	public void setUser(VGUser user) {
+		this.user = user;
+	}
+
 	public void connect() throws IOException {
 		networkClient = new Client();
 		networkClient.start();
 		networkClient.connect(SERVER_TIMEOUT, SERVER_IP, VGServer.PORT);
-	    
-	    TCPMessage.registerKryo(networkClient.getKryo());
-	    
-	    networkClient.addListener(new Listener(){
-	    	@Override
-	    	public void connected(Connection connection) {
-	    		System.out.println("conn");
-	    	}
-	    	
-	    	@Override
-	    	public void disconnected(Connection connection) {
-	    		System.out.println("disconn");
-	    	}
-	    	
-	    	@Override
+
+		TCPMessage.registerKryo(networkClient.getKryo());
+
+		networkClient.addListener(new Listener() {
+			@Override
+			public void connected(Connection connection) {
+				System.out.println("conn");
+			}
+
+			@Override
+			public void disconnected(Connection connection) {
+				System.out.println("disconn");
+			}
+
+			@Override
 			public void received(Connection connection, java.lang.Object object) {
 				for (Class<? extends ServerMessage> cls : listener.keySet()) {
 					if (cls.isInstance(object)) {
@@ -53,14 +59,14 @@ public class VGNetworkAdapter {
 						}
 					}
 				}
-	    	}
-	    });
+			}
+		});
 	}
-	
+
 	public void send(ClientMessage msg) {
 		networkClient.sendTCP(msg);
 	}
-	
+
 	public void addListener(Class<? extends ServerMessage> c, VGNetworkListener l) {
 		if (listener.containsKey(c)) {
 			listener.get(c).add(l);
