@@ -7,6 +7,7 @@ import java.util.List;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
+import com.viergewinnt.logging.CCLog;
 import com.viergewinnt.server.tcp_messages.ServerMessage;
 
 public abstract class GameServer extends Listener {
@@ -42,7 +43,7 @@ public abstract class GameServer extends Listener {
 	public void connected(Connection connection) {
 		ActiveConnections.add(new GameClient(connection));
 		
-		System.out.println("[CONNECTED]" + connection.getID());
+		CCLog.addInformation("[CONNECTED]" + connection.getID());
 		
 		showDebugPlayerList();
 	}
@@ -51,22 +52,25 @@ public abstract class GameServer extends Listener {
 	public void disconnected(Connection connection) {
 		GameClient client = GetClient(connection);
 		ActiveConnections.remove(client);
-		System.out.println("[DISCONNECTED]" + client.toString());
+		CCLog.addInformation("[DISCONNECTED]" + client.toString());
 		
 		showDebugPlayerList();
 	}
 	
 	private void showDebugPlayerList() {
-		System.out.println();
-		System.out.println("######## CONNECTED CLIENTS ########");
+		StringBuilder b = new StringBuilder();
+		b.append("\r\n");
+		b.append("######## CONNECTED CLIENTS ########\r\n");
 		for (GameClient client : ActiveConnections)
-			System.out.println(client.toString());
-		System.out.println("###################################");
-		System.out.println();
+			b.append(client.toString() + "\r\n");
+		b.append("###################################\r\n");
+		b.append("\r\n");
+		
+		CCLog.addInformation(b.toString());
 	}
 	
 	public void send(GameClient client, ServerMessage msg) {
 		server.sendToTCP(client.getConnectionID(), msg);
-		System.out.println("[SEND] -->" + client.getUsername() + " :: " + client.toString());
+		CCLog.addInformation("[SEND] -->" + client.getUsername() + " :: " + client.toString());
 	}
 }

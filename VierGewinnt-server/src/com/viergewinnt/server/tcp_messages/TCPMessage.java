@@ -1,7 +1,7 @@
 package com.viergewinnt.server.tcp_messages;
 
-import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
+import org.apache.commons.lang.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
 
 import com.esotericsoftware.kryo.Kryo;
 import com.viergewinnt.server.tcp_messages.client.LoginRequest;

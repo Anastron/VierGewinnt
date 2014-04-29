@@ -46,3 +46,6 @@ proguard/
 VierGewinnt/bin/
 basename.exe.stackdump
 sh.exe.stackdump
+*/VGData/*
+derby.log
+VierGewinnt-server/bin/*

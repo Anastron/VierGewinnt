@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!DOCTYPE database SYSTEM "http://db.apache.org/torque/dtd/database.dtd">
+<database name="VIERGEWINNT_DATA">
+  <table name="USERS">
+        <column name="LOCALID" 		type="INTEGER"  required="true" primaryKey="true"	/>
+		
+        <column name="USERNAME" 		type="VARCHAR"		required="true" size="128"	/>
+        <column name="USERID" 			type="VARCHAR"		required="true" size="128"	/>
+        <column name="USERSECRET" 		type="VARCHAR"		required="true" size="128"	/>
+
+        <column name="REGISTERDATE"		type="DATE"			required="true"				/>
+		
+        <column name="POINTS"			type="INTEGER"		required="true"				/>
+  </table>
+</database>

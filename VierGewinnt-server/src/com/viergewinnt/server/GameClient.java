@@ -1,13 +1,18 @@
 package com.viergewinnt.server;
 
 import com.esotericsoftware.kryonet.Connection;
+import com.viergewinnt.util.CCDate;
 
 public class GameClient {
-
+	private int database_ID = -1;
+	
 	private boolean loggedIn = false;
-	private String username;
-	private String userid;
-	private String usersecret;
+	
+	public String username;
+	public String userid;
+	public String usersecret;
+	public int points;
+	public CCDate registerDate;
 	
 	private Connection connection;
 	
@@ -31,11 +36,12 @@ public class GameClient {
 			return String.format("USER[CONNID: " + getConnectionID() + "]");
 	}
 
-	public void setLoggedIn(String un, String ui, String us) {
+	public void setLoggedIn(VGServer server, int dbuid) {
 		loggedIn = true;
-		username = un;
-		userid = ui;
-		usersecret = us;
+		
+		database_ID = dbuid;
+
+		server.Database.setUserValues(this, database_ID);
 	}
 
 	public String getUsername() {

@@ -44,7 +44,7 @@ public class JavaConsole extends WindowAdapter implements WindowListener, Action
 	private JTextArea textArea;
 	private Thread reader;
 	private Thread reader2;
-	private boolean quit;
+	public boolean quit;
 					
 	private final PipedInputStream pin=new PipedInputStream(); 
 	private final PipedInputStream pin2=new PipedInputStream();
@@ -166,7 +166,6 @@ public class JavaConsole extends WindowAdapter implements WindowListener, Action
 		try { reader.join(1000);pin.close();   } catch (Exception e){/**/}		
 		try { reader2.join(1000);pin2.close(); } catch (Exception e){/**/}
 		try { pout3.close(); } catch (Exception e){/**/} //DWM 02-07-2012
-		System.exit(0);
 	}		
 		
 	/* (non-Javadoc)
