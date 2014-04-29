@@ -5,10 +5,9 @@ import com.VierGewinnt.network.VGNetworkAdapter;
 import com.VierGewinnt.screens.LoginScreen;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-<<<<<<< HEAD
+
 import com.badlogic.gdx.Preferences;
-=======
->>>>>>> 8eab254361e33f9463d307b5b986436d83c4cd32
+
 
 public class VierGewinnt extends Game {
 	public static final String TITLE = "VierGewinnt", VERSION = "0.0.0.0 reallyCarly";
@@ -27,17 +26,15 @@ public class VierGewinnt extends Game {
 		instance = this;
 		
 		//AudioManager.loadAudio();  wait for audio
-		
-<<<<<<< HEAD
 		prefs = Gdx.app.getPreferences("settings");
-=======
+
 		try {
 			network.connect();			
 		} catch (Exception e) {
 			e.printStackTrace();
 			network = null;
 		}
->>>>>>> 8eab254361e33f9463d307b5b986436d83c4cd32
+
 		
 		TexturesManager.loadTextures();
 		
