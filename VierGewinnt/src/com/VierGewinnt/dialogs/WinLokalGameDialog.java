@@ -26,14 +26,9 @@ public class WinLokalGameDialog extends Dialog{
 	
 	@Override
 	protected void result(Object object){
-	
 		if((Boolean) object){
 			((Game) Gdx.app.getApplicationListener()).setScreen(new LocalGameScreen());
 		}else
 			((Game) Gdx.app.getApplicationListener()).setScreen(new MainMenuScreen());
-
-		
-		
 	}
-
 }

@@ -3,6 +3,7 @@ package com.VierGewinnt.screens;
 import com.VierGewinnt.VierGewinnt;
 import com.VierGewinnt.dialogs.LoginFailDialog;
 import com.VierGewinnt.dialogs.LoginGoodDialog;
+import com.VierGewinnt.dialogs.OfflineDialog;
 import com.VierGewinnt.models.TexturesManager;
 import com.VierGewinnt.network.VGNetworkAdapter;
 import com.VierGewinnt.network.VGNetworkListener;
@@ -45,6 +46,7 @@ public class LoginScreen implements Screen, VGNetworkListener {
 
 	public LoginScreen() {
 		client = VierGewinnt.getInstance().getNetworkClient();
+		
 
 		client.addListener(RegisterAcknowledged.class, this);
 		client.addListener(RegisterDenied.class, this);

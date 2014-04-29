@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import com.VierGewinnt.VierGewinnt;
 import com.VierGewinnt.dialogs.NotImplementedDialog;
+import com.VierGewinnt.dialogs.OfflineDialog;
 import com.VierGewinnt.models.TexturesManager;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -35,21 +36,22 @@ public class MainMenuScreen implements Screen {
 	private Table table;
 	private TextButton buttonComputer, buttonExit, buttonLokal, buttonOnline, buttonRanking, buttonSettings;
 	private BitmapFont white, black;
-	private Label heading;
-	
+	private Label heading, txtIsOnline;
+
+	private boolean isOnline;
+
 	@Override
 	public void render(float delta) {
 		Gdx.gl.glClearColor(0, 0, 1, 0);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		SpriteBatch batch = new SpriteBatch();
-		
+
 		batch.begin();
-		batch.draw(TexturesManager.getbG(), 0, 0,
-				Gdx.graphics.getWidth()*1.3f, Gdx.graphics.getHeight());
+		batch.draw(TexturesManager.getbG(), 0, 0, Gdx.graphics.getWidth() * 1.3f, Gdx.graphics.getHeight());
 		batch.end();
-		
-//		Table.drawDebug(stage);
+
+		// Table.drawDebug(stage);
 
 		stage.act(delta);
 		stage.draw();
@@ -64,6 +66,8 @@ public class MainMenuScreen implements Screen {
 
 	@Override
 	public void show() {
+		isOnline = VierGewinnt.isOnline();
+
 		stage = new Stage();
 
 		Gdx.input.setInputProcessor(stage);
@@ -72,7 +76,7 @@ public class MainMenuScreen implements Screen {
 
 		table = new Table(skin);
 		table.setBounds(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-		
+
 		// creating Fonts...
 		white = new BitmapFont(Gdx.files.internal("font/white.fnt"), false);
 		black = new BitmapFont(Gdx.files.internal("font/black.fnt"), false);
@@ -94,98 +98,116 @@ public class MainMenuScreen implements Screen {
 
 		});
 		buttonExit.pad(30);
-		
+
 		buttonComputer = new TextButton("Computer Game", textButtonStyle);
-		buttonComputer.addListener(new ClickListener(){
+		buttonComputer.addListener(new ClickListener() {
 			@Override
-			public void clicked(InputEvent event, float x, float y){
-//				((Game) Gdx.app.getApplicationListener()).setScreen(new ComputerScreen());
-				
+			public void clicked(InputEvent event, float x, float y) {
+				// ((Game) Gdx.app.getApplicationListener()).setScreen(new ComputerScreen());
+
 				NotImplementedDialog nID = new NotImplementedDialog("", TexturesManager.getSkin());
 				nID.show(stage);
 			}
 		});
 		buttonComputer.pad(30);
-		
+
 		buttonLokal = new TextButton("Lokal Multiplayer", textButtonStyle);
-		buttonLokal.addListener(new ClickListener(){
+		buttonLokal.addListener(new ClickListener() {
 			@Override
-			public void clicked(InputEvent event, float x, float y){
+			public void clicked(InputEvent event, float x, float y) {
 				((Game) Gdx.app.getApplicationListener()).setScreen(new LocalGameScreen());
 			}
 		});
 		buttonLokal.pad(30);
-		
+
 		buttonOnline = new TextButton("Online Multiplayer", textButtonStyle);
-		buttonOnline.addListener(new ClickListener(){
+		buttonOnline.addListener(new ClickListener() {
 			@Override
-			public void clicked(InputEvent event, float x, float y){
-				((Game) Gdx.app.getApplicationListener()).setScreen(new OnlineMenuScreen());
+			public void clicked(InputEvent event, float x, float y) {
+				if(isOnline)
+				{
+					((Game) Gdx.app.getApplicationListener()).setScreen(new OnlineMenuScreen());
+				}
+				else
+				{
+					OfflineDialog offDia = new OfflineDialog("Du bist Offline", TexturesManager.getSkin());
+					offDia.show(stage);
+				}
 			}
 		});
 		buttonOnline.pad(30);
-		
+
 		buttonRanking = new TextButton("Rangliste", textButtonStyle);
-		buttonRanking.addListener(new ClickListener(){
+		buttonRanking.addListener(new ClickListener() {
 			@Override
-			public void clicked(InputEvent event, float x, float y){
-//				((Game) Gdx.app.getApplicationListener()).setScreen(new RankingScreen());
+			public void clicked(InputEvent event, float x, float y) {
+				// ((Game) Gdx.app.getApplicationListener()).setScreen(new RankingScreen());
 				NotImplementedDialog nID = new NotImplementedDialog("", TexturesManager.getSkin());
 				nID.show(stage);
 			}
 		});
 		buttonRanking.pad(30);
-		
+
 		buttonSettings = new TextButton("Einstellungen", textButtonStyle);
-		buttonSettings.addListener(new ClickListener(){
+		buttonSettings.addListener(new ClickListener() {
 			@Override
-			public void clicked(InputEvent event, float x, float y){
+			public void clicked(InputEvent event, float x, float y) {
 				((Game) Gdx.app.getApplicationListener()).setScreen(new SettingsScreen());
-				
-				//TODO OMGLOL
-				
-			    Client client = new Client();
-			    client.start();
-			    
-			    TCPMessage.registerKryo(client.getKryo());
-			    
-			    try {
+
+				// TODO OMGLOL
+
+				Client client = new Client();
+				client.start();
+
+				TCPMessage.registerKryo(client.getKryo());
+
+				try {
 					client.connect(5000, "127.0.0.1", 23965);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
 
-			    client.sendTCP(new LoginRequest());
-			    client.sendTCP(new LoginAcknowledged());
+				client.sendTCP(new LoginRequest());
+				client.sendTCP(new LoginAcknowledged());
 			}
 		});
 		buttonSettings.pad(30);
-		
-		
+
 		// creating heading :)
 		heading = new Label(VierGewinnt.TITLE, new LabelStyle(black, Color.ORANGE));
-		heading.setFontScale(Gdx.graphics.getDensity()*3);
+		heading.setFontScale(Gdx.graphics.getDensity() * 3);
+
+		// creating Labels
+		if (isOnline) {
+			txtIsOnline = new Label("Online", new LabelStyle(white, Color.GREEN));
+		} else {
+			txtIsOnline = new Label("Offline", new LabelStyle(white, Color.RED));
+		}
+		txtIsOnline.setFontScale(Gdx.graphics.getDensity() * 3);
 
 		// putting the stuff together...
 		table.add(heading);
-		table.getCell(heading).spaceBottom(100);
+		table.getCell(heading).spaceBottom(10);
 		table.row();
-		table.add(buttonComputer).prefWidth(Gdx.graphics.getWidth()/2);
+		table.add(txtIsOnline);
+		table.getCell(txtIsOnline).spaceBottom(100);
+		table.row();
+		table.add(buttonComputer).prefWidth(Gdx.graphics.getWidth() / 2);
 		table.getCell(buttonComputer).spaceBottom(15);
 		table.row();
-		table.add(buttonLokal).prefWidth(Gdx.graphics.getWidth()/2);
+		table.add(buttonLokal).prefWidth(Gdx.graphics.getWidth() / 2);
 		table.getCell(buttonLokal).spaceBottom(15);
 		table.row();
-		table.add(buttonOnline).prefWidth(Gdx.graphics.getWidth()/2);
+		table.add(buttonOnline).prefWidth(Gdx.graphics.getWidth() / 2);
 		table.getCell(buttonOnline).spaceBottom(15);
 		table.row();
-		table.add(buttonRanking).prefWidth(Gdx.graphics.getWidth()/2);
+		table.add(buttonRanking).prefWidth(Gdx.graphics.getWidth() / 2);
 		table.getCell(buttonRanking).spaceBottom(15);
 		table.row();
-		table.add(buttonSettings).prefWidth(Gdx.graphics.getWidth()/2);
+		table.add(buttonSettings).prefWidth(Gdx.graphics.getWidth() / 2);
 		table.getCell(buttonSettings).spaceBottom(15);
 		table.row();
-		table.add(buttonExit).prefWidth(Gdx.graphics.getWidth()/2);
+		table.add(buttonExit).prefWidth(Gdx.graphics.getWidth() / 2);
 		table.debug();
 		stage.addActor(table);
 
@@ -213,7 +235,7 @@ public class MainMenuScreen implements Screen {
 	public void dispose() {
 		stage.dispose();
 		atlas.dispose();
-//		skin.dispose();
+		// skin.dispose();
 		white.dispose();
 		black.dispose();
 	}
