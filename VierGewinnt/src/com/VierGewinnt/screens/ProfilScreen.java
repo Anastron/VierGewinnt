@@ -2,6 +2,7 @@ package com.VierGewinnt.screens;
 
 import com.VierGewinnt.dialogs.NotImplementedDialog;
 import com.VierGewinnt.models.TexturesManager;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
@@ -25,7 +26,7 @@ public class ProfilScreen implements Screen {
 	private TextureAtlas atlas;
 	private Skin skin;
 	private Table table;
-	private TextButton buttonChangeNick, buttonLastGames;
+	private TextButton buttonChangeNick, buttonLastGames, buttonBack;
 	private BitmapFont white, black;
 	private Label heading, playerName, rankPlace, rankPoints, rankWins, rankLoses;
 
@@ -95,33 +96,50 @@ public class ProfilScreen implements Screen {
 
 		});
 		buttonLastGames.pad(30);
+		
+		buttonBack = new TextButton("Zurück", textButtonStyle);
+		buttonBack.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				((Game) Gdx.app.getApplicationListener()).setScreen(new SettingsScreen());
+			}
+		});
+		buttonBack.pad(30);
 
 		// creating heading :)
-		heading = new Label("Profl", new LabelStyle(white, Color.ORANGE));
+		heading = new Label("Profil", new LabelStyle(white, Color.ORANGE));
 		heading.setFontScale(Gdx.graphics.getDensity() * 3);
 
 		// creating other Labels
-		playerName = new Label("Name", new LabelStyle(white, Color.GREEN)); // Spieler Name soll von der einer DB aufgerufen werden
+		playerName = new Label("SAM", new LabelStyle(white, Color.GREEN)); // Spieler Name soll von der einer DB aufgerufen werden
 		playerName.setFontScale(Gdx.graphics.getDensity() * 3);
 
 		rankPlace = new Label("Rank: " + "2", new LabelStyle(white, Color.GREEN)); // anstatt 2 soll der Rang geladen werden
 		rankPlace.setFontScale(Gdx.graphics.getDensity() * 3);
+		
+		rankPoints = new Label("Punkte: " + "1245", new LabelStyle(white, Color.GREEN)); //anstatt 1245 soll die tatsächliche Punkte angezeigt werden
+		rankPoints.setFontScale(Gdx.graphics.getDensity() * 3);
 
 		// putting the stuff together...
 		table.add(heading);
-		table.getCell(heading).spaceBottom(100);
+		table.getCell(heading).spaceBottom(50);
 		table.row();
 		table.add(playerName);
-		table.getCell(playerName).spaceBottom(30);
+		table.getCell(playerName).spaceBottom(20);
 		table.row();
-		// In dieser Reihe muss noch die Punkte hinzugefügt werden
 		table.add(rankPlace);
-		table.getCell(rankPlace).spaceBottom(30);
+		table.getCell(rankPlace).spaceBottom(10);
+		table.row();
+		table.add(rankPoints);
+		table.getCell(rankPoints).spaceBottom(40);
 		table.row();
 		table.add(buttonChangeNick).prefWidth(Gdx.graphics.getWidth() / 2);
 		table.getCell(buttonChangeNick).spaceBottom(15);
 		table.row();
 		table.add(buttonLastGames).prefWidth(Gdx.graphics.getWidth() / 2);
+		table.getCell(buttonLastGames).spaceBottom(15);
+		table.row();
+		table.add(buttonBack).prefWidth(Gdx.graphics.getWidth() / 2);
 		table.debug();
 		stage.addActor(table);
 

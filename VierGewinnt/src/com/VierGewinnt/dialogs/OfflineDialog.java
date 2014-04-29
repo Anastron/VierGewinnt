@@ -8,8 +8,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 public class OfflineDialog extends Dialog {
 
-
-
 	public static boolean isOnline;
 
 	public OfflineDialog(String title, Skin skin) {

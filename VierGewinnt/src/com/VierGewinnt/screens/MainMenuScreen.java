@@ -153,22 +153,6 @@ public class MainMenuScreen implements Screen {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				((Game) Gdx.app.getApplicationListener()).setScreen(new SettingsScreen());
-
-				// TODO OMGLOL
-
-				Client client = new Client();
-				client.start();
-
-				TCPMessage.registerKryo(client.getKryo());
-
-				try {
-					client.connect(5000, "127.0.0.1", 23965);
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-
-				client.sendTCP(new LoginRequest());
-				client.sendTCP(new LoginAcknowledged());
 			}
 		});
 		buttonSettings.pad(30);
