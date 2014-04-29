@@ -1,7 +1,12 @@
 package com.VierGewinnt.screens;
 
-import com.VierGewinnt.dialogs.NotImplementedDialog;
+import com.VierGewinnt.VierGewinnt;
+import com.VierGewinnt.dialogs.LoginFailDialog;
+import com.VierGewinnt.dialogs.LoginGoodDialog;
 import com.VierGewinnt.models.TexturesManager;
+import com.VierGewinnt.network.VGNetworkAdapter;
+import com.VierGewinnt.network.VGNetworkListener;
+import com.VierGewinnt.network.VGUser;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
@@ -17,17 +22,33 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.esotericsoftware.kryonet.Connection;
+import com.viergewinnt.server.tcp_messages.ServerMessage;
+import com.viergewinnt.server.tcp_messages.client.RegisterRequest;
+import com.viergewinnt.server.tcp_messages.server.RegisterAcknowledged;
+import com.viergewinnt.server.tcp_messages.server.RegisterDenied;
 
-public class ProfilScreen implements Screen {
+public class LoginScreen implements Screen, VGNetworkListener {
 
 	private Stage stage;
 	private TextureAtlas atlas;
 	private Skin skin;
 	private Table table;
-	private TextButton buttonChangeNick, buttonLastGames;
+	private TextButton buttonRegister;
 	private BitmapFont white, black;
-	private Label heading, playerName, rankPlace, rankPoints, rankWins, rankLoses;
+	private Label heading, loginLabel, nameLabel;
+	private TextField txtUsername;
+
+	private VGNetworkAdapter client;
+
+	public LoginScreen() {
+		client = VierGewinnt.getInstance().getNetworkClient();
+
+		client.addListener(RegisterAcknowledged.class, this);
+		client.addListener(RegisterDenied.class, this);
+	}
 
 	@Override
 	public void render(float delta) {
@@ -39,6 +60,8 @@ public class ProfilScreen implements Screen {
 		batch.begin();
 		batch.draw(TexturesManager.getbG(), 0, 0, Gdx.graphics.getWidth() * 1.3f, Gdx.graphics.getHeight());
 		batch.end();
+
+		// Table.drawDebug(stage);
 
 		stage.act(delta);
 		stage.draw();
@@ -74,57 +97,45 @@ public class ProfilScreen implements Screen {
 		textButtonStyle.pressedOffsetY = -1;
 		textButtonStyle.font = black;
 
-		buttonChangeNick = new TextButton("Name ändern", textButtonStyle);
-		buttonChangeNick.addListener(new ClickListener() {
+		buttonRegister = new TextButton("Login", textButtonStyle);
+		buttonRegister.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				NotImplementedDialog nID = new NotImplementedDialog("", TexturesManager.getSkin());
-				nID.show(stage);
+				client.send(new RegisterRequest(txtUsername.getText()));
 			}
 
 		});
-		buttonChangeNick.pad(30);
-
-		buttonLastGames = new TextButton("Letzte Spiele", textButtonStyle);
-		buttonLastGames.addListener(new ClickListener() {
-			@Override
-			public void clicked(InputEvent event, float x, float y) {
-				NotImplementedDialog nID = new NotImplementedDialog("", TexturesManager.getSkin());
-				nID.show(stage);
-			}
-
-		});
-		buttonLastGames.pad(30);
+		buttonRegister.pad(15);
 
 		// creating heading :)
-		heading = new Label("Profl", new LabelStyle(white, Color.ORANGE));
+		heading = new Label(VierGewinnt.TITLE, new LabelStyle(black, Color.ORANGE));
 		heading.setFontScale(Gdx.graphics.getDensity() * 3);
 
-		// creating other Labels
-		playerName = new Label("Name", new LabelStyle(white, Color.GREEN)); // Spieler Name soll von der einer DB aufgerufen werden
-		playerName.setFontScale(Gdx.graphics.getDensity() * 3);
+		// creating Labels
+		loginLabel = new Label("Login", new LabelStyle(white, Color.BLUE));
+		loginLabel.setFontScale(Gdx.graphics.getDensity() * 3);
+		nameLabel = new Label("Bitte Nickname eingeben:", new LabelStyle(white, Color.BLUE));
+		nameLabel.setFontScale(Gdx.graphics.getDensity() * 3);
 
-		rankPlace = new Label("Rank: " + "2", new LabelStyle(white, Color.GREEN)); // anstatt 2 soll der Rang geladen werden
-		rankPlace.setFontScale(Gdx.graphics.getDensity() * 3);
+		// creating TextField
+		txtUsername = new TextField("", TexturesManager.getSkin());
+		txtUsername.setMessageText("Username");
 
-		// putting the stuff together...
 		table.add(heading);
 		table.getCell(heading).spaceBottom(100);
 		table.row();
-		table.add(playerName);
-		table.getCell(playerName).spaceBottom(30);
+		table.add(loginLabel);
+		table.getCell(loginLabel).spaceBottom(50);
 		table.row();
-		// In dieser Reihe muss noch die Punkte hinzugefügt werden
-		table.add(rankPlace);
-		table.getCell(rankPlace).spaceBottom(30);
+		table.add(nameLabel);
+		table.getCell(nameLabel).spaceBottom(30);
 		table.row();
-		table.add(buttonChangeNick).prefWidth(Gdx.graphics.getWidth() / 2);
-		table.getCell(buttonChangeNick).spaceBottom(15);
+		table.add(txtUsername);
+		table.getCell(txtUsername).spaceBottom(15);
 		table.row();
-		table.add(buttonLastGames).prefWidth(Gdx.graphics.getWidth() / 2);
+		table.add(buttonRegister).prefWidth(Gdx.graphics.getWidth() / 2);
 		table.debug();
 		stage.addActor(table);
-
 	}
 
 	@Override
@@ -149,6 +160,23 @@ public class ProfilScreen implements Screen {
 	public void dispose() {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public void recieve(Connection connection, ServerMessage msg) {
+		if (msg instanceof RegisterAcknowledged) {
+
+			client.setUser(new VGUser(((RegisterAcknowledged) msg).username, ((RegisterAcknowledged) msg).userid, ((RegisterAcknowledged) msg).usersecret));
+
+			LoginGoodDialog loginGoodDia = new LoginGoodDialog("Willkommen", TexturesManager.getSkin(), ((RegisterAcknowledged) msg).username);
+			loginGoodDia.show(stage);
+
+		} else if (msg instanceof RegisterDenied) {
+			// wenn man ned nei kommt
+
+			LoginFailDialog loginFailDia = new LoginFailDialog("Register lief schief", TexturesManager.getSkin(), ((RegisterDenied) msg).reason.toString());
+			loginFailDia.show(stage);
+		}
 	}
 
 }
